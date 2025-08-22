@@ -3,7 +3,7 @@ import { getPermalink, getBlogPermalink, getAsset } from './utils/permalinks';
 export const headerData = {
   links: [
     {
-      text: 'Homes',
+      text: 'Programming',
       links: [
         {
           text: 'SaaS',
@@ -24,7 +24,7 @@ export const headerData = {
       ],
     },
     {
-      text: 'Pages',
+      text: 'Dynamics',
       links: [
         {
           text: 'Features (Anchor Link)',
@@ -57,7 +57,7 @@ export const headerData = {
       ],
     },
     {
-      text: 'Landing',
+      text: 'Control',
       links: [
         {
           text: 'Lead Generation',
@@ -86,7 +86,7 @@ export const headerData = {
       ],
     },
     {
-      text: 'Blog',
+      text: 'PhysicalAI',
       links: [
         {
           text: 'Blog List',
@@ -111,7 +111,7 @@ export const headerData = {
       ],
     },
     {
-      text: 'Widgets',
+      text: 'About Me',
       href: '#',
     },
   ],
@@ -177,6 +177,6 @@ export const footerData = {
     { ariaLabel: 'Github', icon: 'tabler:brand-github', href: 'https://github.com/arthelokyo/astrowind' },
   ],
   footNote: `
-    Made by <a class="text-blue-600 underline dark:text-muted" href="https://github.com/arthelokyo"> Arthelokyo</a> · All rights reserved.
+    Made by <a class="text-blue-600 underline dark:text-muted" href="https://github.com/Hankyu-Kim"> Hankyu Kim</a> · All rights reserved.
   `,
 };
