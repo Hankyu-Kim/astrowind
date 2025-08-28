@@ -57,6 +57,10 @@ export const headerData = {
         {
           text: 'Dynamics',
           href: getPermalink('dynamics', 'post'),
+        },
+        {
+          text: 'Electronic circuits',
+          href: getPermalink('electronic-circuits', 'post'),
         }
       ],
     },

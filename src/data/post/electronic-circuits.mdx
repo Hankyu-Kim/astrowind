@@ -1,0 +1,48 @@
+---
+publishDate: 2023-08-12T00:00:00Z
+author: Hankyu Kim
+title: Electronic Circuits
+excerpt: Electronic circuits form the foundation of system modeling, using basic components such as resistors, capacitors, inductors, and operational amplifiers to analyze and design dynamic systems.
+image: https://images.unsplash.com/photo-1587569087747-addba755bda6?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: System Modeling
+tags:
+  - modeling
+  - electronics
+  - circuit
+metadata:
+  canonical: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css
+---
+
+Electronic circuits play a central role in system modeling, providing the foundation for analyzing and designing dynamic systems. By combining basic components such as resistors, capacitors, inductors, and operational amplifiers (op-amps), engineers can represent electrical behavior mathematically and translate it into models applicable to control theory, signal processing, and system dynamics.
+
+At the most fundamental level, resistors, capacitors, and inductors describe how circuits respond to voltages and currents. A resistor follows Ohm’s law:
+
+$$
+V = IR
+$$
+
+opposing current and dissipating energy as heat. A capacitor stores electrical energy in an electric field, with current proportional to the rate of change of voltage:
+
+$$
+i = C \frac{dv}{dt}
+$$
+
+An inductor, in contrast, stores energy in a magnetic field, where voltage depends on the rate of change of current:
+
+$$
+v = L \frac{di}{dt}
+$$
+
+Each of these elements introduces distinct time-dependent behaviors that form the basis of dynamic system responses.
+
+Operational amplifiers extend these principles further. Under ideal assumptions—such as infinite input resistance, zero output resistance, and infinite gain—op-amps serve as versatile building blocks for amplification, filtering, and mathematical operations. For instance, an op-amp configured with a resistor and capacitor can function as an integrator circuit. Applying Kirchhoff’s Current Law (KCL) at the input, one finds that the transfer function becomes:
+
+$$
+G(s) = \frac{V_{out}(s)}{V_{in}(s)} = -\frac{1}{RCs}
+$$
+
+This reveals how the circuit performs continuous integration on the input signal, a principle widely applied in analog computing and control systems.
+
+The systematic use of laws such as Kirchhoff’s Current Law allows engineers to derive governing equations for circuits, translate them into the Laplace domain, and extract transfer functions. These transfer functions directly link input signals to output responses, enabling deeper insights into stability, frequency response, and controllability.
+
+Ultimately, electronic system modeling demonstrates how simple building blocks—resistors, capacitors, inductors, and op-amps—combine to form complex behaviors. Through this framework, engineers and scientists can design, predict, and optimize circuits and systems that power modern technologies, from communication networks to robotics and automation.
