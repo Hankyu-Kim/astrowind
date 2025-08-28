@@ -1,0 +1,78 @@
+---
+publishDate: 2023-08-28T00:00:00Z
+author: Hankyu Kim
+title: Electromechanical Systems
+excerpt: Electromechanical systems link electrical and mechanical domains, forming the foundation for motors, generators, actuators, and energy conversion devices through mathematical modeling.
+image: https://images.unsplash.com/photo-1730201127761-15888d9ddf98?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: System Modeling
+tags:
+  - modeling
+  - electromechanical
+  - motors
+  - actuators
+metadata:
+  canonical: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css
+---
+
+Electromechanical systems combine both **electrical** and **mechanical** domains. They are essential in motors, generators, actuators, and energy conversion devices. By analyzing these systems, engineers can establish mathematical models that describe how electrical inputs produce mechanical outputs and how mechanical motion can generate electrical power in return.
+
+At the core of electromechanical systems lies the interaction between electricity and magnetism. When current flows through a conductor in a magnetic field, it produces a force expressed as:
+
+$$
+F = B \cdot l \cdot i
+$$
+
+where:
+- \( F \) = Force  
+- \( B \) = Magnetic flux density  
+- \( l \) = Length of conductor  
+- \( i \) = Current  
+
+Conversely, when a conductor moves in a magnetic field, it induces a voltage according to Faraday’s Law:
+
+$$
+e = B \cdot l \cdot v
+$$
+
+where:
+- \( e \) = Induced EMF  
+- \( v \) = Velocity  
+
+Motors and generators rely on these principles. In a motor, a moving conductor induces a **back EMF** proportional to angular velocity:
+
+$$
+e = K_e \cdot \dot{\theta}
+$$
+
+At the same time, torque is generated according to:
+
+$$
+T = K_t \cdot i_a
+$$
+
+where:
+- \( T \) = Torque  
+- \( K_t \) = Torque constant  
+- \( i_a \) = Armature current  
+
+The mechanical power is given by:
+
+$$
+P = T \cdot \omega
+$$
+
+where:
+- \( P \) = Power  
+- \( \omega \) = Angular velocity  
+
+Gear trains illustrate how torque and angular displacement are transmitted between connected shafts:
+
+$$
+T_1 \cdot \theta_1 = T_2 \cdot \theta_2
+$$
+
+These relationships demonstrate the dual nature of electromechanical systems:
+- Electrical input produces mechanical motion (motors).  
+- Mechanical motion produces electrical output (generators).  
+
+By unifying these principles, electromechanical modeling enables precise control and efficient energy conversion across applications, from small actuators in robotics to large-scale industrial machinery. Understanding these interactions is therefore fundamental for modern engineering, bridging the gap between two vital domains of energy.

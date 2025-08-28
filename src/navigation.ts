@@ -61,6 +61,10 @@ export const headerData = {
         {
           text: 'Electronic circuits',
           href: getPermalink('electronic-circuits', 'post'),
+        },
+        {
+          text: 'Electromechanical',
+          href: getPermalink('electromechanical', 'post'),
         }
       ],
     },
