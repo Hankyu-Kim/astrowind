@@ -12,7 +12,7 @@ import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import { getPermalink } from '~/utils/permalinks';
 
 const metadata = {
-  title: 'Personal Homepage Demo',
+  title: 'Personal Homepage',
 };
 ---
 
@@ -26,7 +26,7 @@ const metadata = {
         { text: 'Resume', href: '#resume' },
         { text: 'Porfolio', href: '#porfolio' },
         { text: 'Blog', href: '#blog' },
-        { text: 'Github', href: 'https://github.com/arthelokyo' },
+        { text: 'Github', href: 'https://github.com/Hankyu-Kim' },
       ]}
       actions={[
         {
@@ -43,14 +43,14 @@ const metadata = {
 
   <Hero
     id="hero"
-    title="Sarah Johnson"
-    tagline="Personal Web Demo"
+    title="Hankyu Kim"
+    tagline="Personal Web"
     actions={[{ variant: 'primary', text: 'Hire me', href: getPermalink('/contact#form') }]}
   >
     <Fragment slot="subtitle">
-      I'm a Graphic Designer passionate about crafting visual stories. <br /> With 5 years of experience and a degree from
-      New York University's School of Design. I infuse vitality into brands and designs, transforming concepts into captivating
-      realities.
+      I'm a Robotics Engineer passionate about building intelligent systems. <br /> 
+With 2 years of experience developing autonomous driving technologies and a degree in Electronics and Electrical Engineering, 
+I am now pursuing my Master's in ECE at UCSC, exploring the intersection of robotics, control, and AI.
     </Fragment>
   </Hero>
 
@@ -61,32 +61,32 @@ const metadata = {
     columns={3}
     items={[
       {
-        icon: 'tabler:brand-dribbble',
+        icon: 'tabler:brand-github',
         callToAction: {
           target: '_blank',
-          text: 'Dribbble',
-          href: '#',
+          text: 'Github',
+          href: 'https://github.com/Hankyu-Kim',
         },
       },
       {
-        icon: 'tabler:brand-behance',
+        icon: 'tabler:mood-smile-beam',
         callToAction: {
           target: '_blank',
-          text: 'Behance',
-          href: '#',
+          text: 'Hugging Face',
+          href: 'https://huggingface.co/hank123456',
         },
       },
       {
-        icon: 'tabler:brand-pinterest',
+        icon: 'tabler:brand-linkedin',
         callToAction: {
           target: '_blank',
-          text: 'Pinterest',
-          href: '#',
+          text: 'LinkedIn',
+          href: 'https://www.linkedin.com/in/hankyu-kim-hardworker/',
         },
       },
     ]}
     image={{
-      src: 'https://images.unsplash.com/photo-1491349174775-aaafddd81942?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+      src: 'https://i.imgur.com/8ZlDWXo.jpeg',
       alt: 'Colorful Image',
       loading: 'eager',
     }}
@@ -94,16 +94,18 @@ const metadata = {
     <Fragment slot="content">
       <h2 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">About me</h2>
       <p>
-        Welcome to my creative journey. My work is a testament to my commitment to bringing ideas to life, where each
-        pixel becomes a brushstroke in the canvas of imagination.
+        Welcome to my engineering journey. 
+        My work reflects a strong commitment to building reliable and scalable systems, 
+        where every line of code contributes to a greater whole.
       </p>
       <br />
       <p>
-        I find inspiration in the world around me, whether through the pages of a captivating novel, the intricate
-        details of typography, or the vibrant hues of nature during my outdoor escapades.
+        I thrive in collaboration, bridging communication across teams to achieve shared goals. 
+        I believe talented individuals can create extraordinary solutions, 
+        and I am dedicated to fostering an environment where innovation flourishes.
       </p>
       <br />
-      <p>If you're curious to dive deeper into my work, you can follow me:</p>
+      <p>If you're curious to explore more of my work, you can follow me:</p>
     </Fragment>
 
     <Fragment slot="bg">
@@ -113,25 +115,28 @@ const metadata = {
 
   <!-- Steps Widget ****************** -->
 
-  <Steps
-    id="resume"
-    title="Work experience"
-    items={[
-      {
-        title:
-          'Graphic Designer <br /> <span class="font-normal">ABC Design Studio, New York, NY</span> <br /> <span class="text-sm font-normal">2021 - Present</span>',
-        description: `Collaborate with clients to understand design requirements and objectives. <br /> Develop branding solutions, including logos, color palettes, and brand guidelines. <br /> Design marketing materials such as brochures, posters, and digital assets. <br /> Create visually appealing user interfaces for websites and applications.`,
-        icon: 'tabler:briefcase',
-      },
-      {
-        title:
-          'Junior Graphic Designer <br /> <span class="font-normal">XYZ Creative Agency, Los Angeles, CA</span> <br /> <span class="text-sm font-normal">2018 - 2021</span>',
-        description: `Assisted senior designers in creating design concepts and visual assets. <br /> Contributed to the development of brand identities and marketing collateral. <br /> Collaborated with the marketing team to ensure consistent design across campaigns. <br /> Gained hands-on experience in various design software and tools.`,
-        icon: 'tabler:briefcase',
-      },
-    ]}
-    classes={{ container: 'max-w-3xl' }}
-  />
+<Steps
+  id="resume"
+  title="Work experience"
+  items={[
+    {
+      title:
+        'SW Engineer <br /> <span class="font-normal">MORAI Inc., Seoul, South Korea</span> <br /> <span class="text-sm font-normal">Apr 2024 - May 2025</span>',
+      description: `Architected and developed a multi-threaded communication module for real-time data exchange between real robots/vehicles and the simulator using UDP, TCP/IP, gRPC, and ROS. <br />
+      Created virtual sensor data (cameras, LiDAR) in the simulator via UDP/ROS. <br />
+      Developed a multi-vehicle control tower software, including both server and client components with integrated database support.`,
+      icon: 'tabler:briefcase',
+    },
+    {
+      title:
+        'Autonomous Driving SW Engineer <br /> <span class="font-normal">sonnet.ai, Daegu, South Korea</span> <br /> <span class="text-sm font-normal">Feb 2023 - Apr 2024</span>',
+      description: `Developed full-stack autonomous driving systems, including a Qt-based UI and remote vehicle control/data transfer over UDP for a robotaxi platform. <br />
+      Engineered longitudinal and lateral control systems, incorporating actuator control, parameter tuning, and local path planning for smooth and stable driving, including curve handling.`,
+      icon: 'tabler:briefcase',
+    },
+  ]}
+  classes={{ container: 'max-w-3xl' }}
+/>
 
   <!-- Steps Widget ****************** -->
 
@@ -140,11 +145,11 @@ const metadata = {
     title="Education"
     items={[
       {
-        title: `Master of Fine Arts in Graphic Design <br /> <span class="font-normal">New York University's School of Design</span> <br /> <span class="text-sm font-normal">2018 - 2020</span>`,
+        title: `Master of Science in Electrical and Computer Engineering <br /> <span class="font-normal">University of California, Santa Cruz</span> <br /> <span class="text-sm font-normal">2025 - Present</span>`,
         icon: 'tabler:school',
       },
       {
-        title: `Bachelor of Arts in Graphic Design <br /> <span class="font-normal">New York University's School of Design</span> <br /> <span class="text-sm font-normal">2014 - 2018</span>`,
+        title: `Bachelor of Science in Electrical and Electronic Engineering <br /> <span class="font-normal">Dankook University</span> <br /> <span class="text-sm font-normal">2017 - 2023</span>`,
         icon: 'tabler:school',
       },
     ]}
@@ -155,45 +160,45 @@ const metadata = {
 
   <Features3
     title="Skills"
-    subtitle="Discover the proficiencies that allow me to bring imagination to life through design."
+    subtitle="Explore the technical proficiencies that empower me to build intelligent systems and autonomous solutions."
     columns={3}
     defaultIcon="tabler:point-filled"
     items={[
       {
-        title: 'Graphic design',
-        description: 'Proficient in crafting visually appealing designs that convey messages effectively.',
+        title: 'Programming',
+        description: 'Proficient in C, C++, C#, and Python for developing robust software solutions.',
       },
       {
-        title: 'Branding and identity',
-        description: 'Skilled at developing cohesive brand identities, including logos and brand guidelines.',
+        title: 'Network Communication',
+        description: 'Experienced in UDP, TCP/IP, and ROS for real-time data exchange and robotics applications.',
       },
       {
-        title: 'User-centered design',
-        description: 'Experienced in creating user-friendly interfaces and optimizing user experiences.',
+        title: 'Multithreading',
+        description: 'Skilled in designing and implementing multi-threaded systems for high-performance computing.',
       },
       {
-        title: 'Adobe Creative Suite',
-        description: 'Skilled in using Photoshop, Illustrator, and InDesign to create and edit visual elements.',
+        title: 'Electrical Fundamentals',
+        description: 'Solid understanding of voltage, current, and electrical principles for hardware interfacing.',
       },
       {
-        title: 'Typography',
-        description: 'Adept in selecting and manipulating typefaces to enhance design aesthetics.',
+        title: 'Control Theory',
+        description: 'Knowledgeable in PID control, compensators, and advanced control techniques for dynamic systems.',
       },
       {
-        title: 'Color theory',
-        description: 'Proficient in using color to evoke emotions and enhance visual harmony.',
+        title: 'Dynamics',
+        description: 'Experience in modeling and analyzing physical systems and their motion behaviors.',
       },
       {
-        title: 'Print and digital design',
-        description: 'Knowledgeable in designing for both print materials and digital platforms.',
+        title: 'Circuit Modeling',
+        description: 'Familiar with resistors, capacitors, inductors, transistors, and op-amps, including practical and simulation-based analysis.',
       },
       {
-        title: 'Attention to detail',
-        description: 'Diligent in maintaining precision and quality in all design work.',
+        title: 'Natural Language Processing',
+        description: 'Experienced in processing and analyzing text data for language understanding tasks.',
       },
       {
-        title: 'Adaptability',
-        description: 'Quick to adapt to new design trends, technologies, and client preferences.',
+        title: 'Deep Learning & Reinforcement Learning',
+        description: 'Skilled in designing and training neural networks for perception, control, and decision-making tasks.',
       },
     ]}
   />
@@ -230,7 +235,7 @@ const metadata = {
   >
     <Fragment slot="content">
       <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
-        Project 1: <br /><span class="text-2xl">Brand identity for tech innovators</span>
+        Project 1: <br /><span class="text-2xl">lerobot model 연구개발 - 실물, simulator</span>
       </h3>
     </Fragment>
 
@@ -268,7 +273,7 @@ const metadata = {
   >
     <Fragment slot="content">
       <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
-        Project 2: <br /><span class="text-2xl">Event poster for art & music festival</span>
+        Project 2: <br /><span class="text-2xl">Roarm pick & place - Inverse Kinematics, PID 제어 적용</span>
       </h3>
     </Fragment>
 
@@ -305,7 +310,7 @@ const metadata = {
   >
     <Fragment slot="content">
       <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
-        Project 3: <br /><span class="text-2xl">E-commerce website redesign for fashion brand</span>
+        Project 3: <br /><span class="text-2xl">Genesis AI (현재 진행중) - 생성형 시뮬레이터</span>
       </h3>
     </Fragment>
 
@@ -322,7 +327,7 @@ const metadata = {
     testimonials={[
       {
         testimonial: `She took our vague concept and turned it into a visual masterpiece that perfectly aligned with our goals. Her attention to detail and ability to translate ideas into compelling visuals exceeded our expectations.`,
-        name: 'Mark Thompson',
+        name: '정재훈',
         job: 'Creative director',
         image: {
           src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
@@ -331,7 +336,7 @@ const metadata = {
       },
       {
         testimonial: `She transformed our brand identity with her creative finesse, capturing our essence in every element. Her dedication and talent truly shine through her work.`,
-        name: 'Emily Martinez',
+        name: '손준우',
         job: 'CEO',
         image: {
           src: 'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=772&q=80',
@@ -340,7 +345,7 @@ const metadata = {
       },
       {
         testimonial: `She has an uncanny ability to communicate emotions and stories. She crafted a logo for our NGO that not only represents our cause but also evokes empathy. Her professionalism and commitment make her a designer of exceptional caliber.`,
-        name: 'Laura Simmons',
+        name: '허경무',
         job: 'Founder of an NGO',
         image: {
           src: 'https://images.unsplash.com/photo-1554727242-741c14fa561c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
@@ -349,7 +354,7 @@ const metadata = {
       },
       {
         testimonial: `We entrusted Sarah with revamping our website's user interface, and the results were astounding. Her intuitive design sense enhanced user experience, leading to a significant increase in engagement. She's a designer who truly understands the synergy of aesthetics and functionality.`,
-        name: 'Alex Foster',
+        name: '김정희',
         job: 'Director of web services',
         image: {
           src: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
@@ -358,7 +363,7 @@ const metadata = {
       },
       {
         testimonial: `She took our vision and elevated it beyond imagination. Her ability to capture brand essence and translate it into design is nothing short of remarkable. Working with her has been an inspiring journey.`,
-        name: 'Jessica Collins',
+        name: '정미나',
         job: 'Product Manager',
         image: {
           src: 'https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=778&q=80',
@@ -367,7 +372,7 @@ const metadata = {
       },
       {
         testimonial: `Her ability to transform concepts into captivating visuals is nothing short of extraordinary. She took our event poster idea and turned it into a visual masterpiece that perfectly captured the essence of our festival. Sarah's dedication, creativity, and knack for delivering beyond expectations make her an invaluable asset to any project.`,
-        name: 'Michael Carter',
+        name: '정희원',
         job: 'Event Coordinator',
         image: {
           src: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
@@ -378,7 +383,7 @@ const metadata = {
   />
 
   <!-- CallToAction Widget *********** -->
-
+<!-- 이거 기능조사 후 구현 필요 -->
   <CallToAction
     title="Let's create together"
     subtitle="Ready to transform your vision into captivating designs?"

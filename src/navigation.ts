@@ -112,7 +112,7 @@ export const headerData = {
     },
     {
       text: 'About Me',
-      href: '#',
+      href: 'homes/personal',
     },
   ],
   actions: [{ text: 'Download', href: 'https://github.com/arthelokyo/astrowind', target: '_blank' }],
