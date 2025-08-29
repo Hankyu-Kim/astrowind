@@ -1,0 +1,75 @@
+---
+publishDate: 2023-08-28T00:00:00Z
+author: Hankyu Kim
+title: Heat Transfer
+excerpt: Heat transfer is the process of energy movement due to temperature difference, modeled through conduction, convection, and thermal resistance analogies.
+image: https://images.unsplash.com/photo-1740907259733-afc02b87ab20?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: System Modeling
+tags:
+  - modeling
+  - heat
+  - thermodynamics
+metadata:
+  canonical: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css
+---
+
+Heat transfer is the process of energy movement caused by a temperature difference. It occurs through three primary mechanisms: conduction, convection, and radiation. In system modeling, conduction and convection are particularly important because they allow engineers to represent thermal systems mathematically.
+
+The ability of a body to store thermal energy is described by its heat capacity:
+
+$$
+C = m c = \rho V c
+$$
+
+(Here, **m** is mass, **ρ** is density, **V** is volume, and **c** is specific heat capacity.)
+The temperature change caused by absorbed heat can be expressed as:
+
+$$
+\Delta T = \frac{Q}{C}
+$$
+
+### Conduction
+Conduction refers to the transfer of thermal energy through a solid medium. According to Fourier’s Law, it is written as:
+
+$$
+\dot{Q} = \frac{k A}{L} (T_1 - T_2)
+$$
+
+(where **𝑄̇** is the heat transfer rate, **k** is the thermal conductivity, **A** is the cross-sectional area, **L** is the thickness, and **T₁, T₂** are the temperatures on each side.)
+
+### Convection
+Convection, on the other hand, describes heat transfer through the motion of a fluid. It is represented as:
+
+$$
+\dot{Q} = h A (T_s - T_\infty)
+$$
+
+(where **h** is the heat transfer coefficient, **A** is the surface area, **Tₛ** is the surface temperature, and **T∞** is the surrounding fluid temperature.)
+
+### Relevance with electrical circuits
+To simplify system analysis, heat transfer can be modeled using a thermal resistance analogy similar to electrical circuits. The general form is:
+
+$$
+R = \frac{\Delta T}{\dot{Q}}
+$$
+
+For conduction:
+
+$$
+R = \frac{L}{k A}
+$$
+
+For convection:
+
+$$
+R = \frac{1}{h A}
+$$
+
+This analogy makes it possible to represent thermal systems as resistive networks, which simplifies the modeling and prediction of heat flow.
+
+### Summary
+- Heat conduction depends on material properties, such as thermal conductivity.  
+- Heat convection depends on fluid motion and surface interaction.  
+- Heat capacity defines how much a material’s temperature changes under a given heat input.  
+
+System modeling of heat transfer is essential for designing insulation, heat exchangers, electronic cooling systems, and thermal management solutions. By applying conduction, convection, and resistance analogies, engineers can analyze and optimize real thermal systems with precision.

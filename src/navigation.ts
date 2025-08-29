@@ -65,7 +65,11 @@ export const headerData = {
         {
           text: 'Electromechanical',
           href: getPermalink('electromechanical', 'post'),
-        }
+        },
+        {
+          text: 'Heat transfer',
+          href: getPermalink('heat-transfer', 'post'),
+        },
       ],
     },
     {
