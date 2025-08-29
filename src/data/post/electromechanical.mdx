@@ -1,5 +1,5 @@
 ---
-publishDate: 2023-08-28T00:00:00Z
+publishDate: 2025-08-28T00:00:00Z
 author: Hankyu Kim
 title: Electromechanical Systems
 excerpt: Electromechanical systems link electrical and mechanical domains, forming the foundation for motors, generators, actuators, and energy conversion devices through mathematical modeling.
@@ -9,70 +9,63 @@ tags:
   - modeling
   - electromechanical
   - motors
-  - actuators
-metadata:
-  canonical: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css
 ---
 
-Electromechanical systems combine both **electrical** and **mechanical** domains. They are essential in motors, generators, actuators, and energy conversion devices. By analyzing these systems, engineers can establish mathematical models that describe how electrical inputs produce mechanical outputs and how mechanical motion can generate electrical power in return.
+### Introduction
+Electromechanical systems combine electrical and mechanical domains. They are essential in motors, generators, actuators, and energy conversion devices. By analyzing these systems, engineers can build mathematical models that describe how electrical inputs produce mechanical outputs and how mechanical motion generates electrical power in return.
 
-At the core of electromechanical systems lies the interaction between electricity and magnetism. When current flows through a conductor in a magnetic field, it produces a force expressed as:
+### law of motor
+The interaction between electricity and magnetism forms the basis of electromechanical systems. When current flows through a conductor in a magnetic field, it produces a force:
 
 $$
 F = B \cdot l \cdot i
 $$
 
-where:
-- \( F \) = Force  
-- \( B \) = Magnetic flux density  
-- \( l \) = Length of conductor  
-- \( i \) = Current  
+(Here, **F** is force, **B** is magnetic flux density, **l** is the length of the conductor, and **i** is current.)
 
-Conversely, when a conductor moves in a magnetic field, it induces a voltage according to Faraday’s Law:
+### Induced electromotive force
+When a conductor moves in a magnetic field, it induces a voltage:
 
 $$
 e = B \cdot l \cdot v
 $$
 
-where:
-- \( e \) = Induced EMF  
-- \( v \) = Velocity  
+(Here, **e** is induced EMF and **v** is velocity.)
 
-Motors and generators rely on these principles. In a motor, a moving conductor induces a **back EMF** proportional to angular velocity:
+### back emf
+Motors and generators rely on these principles. In a motor, a moving conductor generates a back EMF proportional to angular velocity:
 
 $$
 e = K_e \cdot \dot{\theta}
 $$
 
-At the same time, torque is generated according to:
+At the same time, torque is generated as:
 
 $$
 T = K_t \cdot i_a
 $$
 
-where:
-- \( T \) = Torque  
-- \( K_t \) = Torque constant  
-- \( i_a \) = Armature current  
+(Here, **T** is torque, **Kₜ** is the torque constant, and **iₐ** is the armature current.)
 
-The mechanical power is given by:
+### Motor Torque
+The conversion of electrical energy into mechanical work is expressed as:
 
 $$
 P = T \cdot \omega
 $$
 
-where:
-- \( P \) = Power  
-- \( \omega \) = Angular velocity  
+(Here, **P** is power and **ω** is angular velocity.)
 
-Gear trains illustrate how torque and angular displacement are transmitted between connected shafts:
+### Gear ratio
+Gear trains transfer torque and angular displacement between connected shafts, expressed as:
 
 $$
 T_1 \cdot \theta_1 = T_2 \cdot \theta_2
 $$
 
-These relationships demonstrate the dual nature of electromechanical systems:
+### Summary
+These relationships highlight the dual nature of electromechanical systems:  
 - Electrical input produces mechanical motion (motors).  
 - Mechanical motion produces electrical output (generators).  
 
-By unifying these principles, electromechanical modeling enables precise control and efficient energy conversion across applications, from small actuators in robotics to large-scale industrial machinery. Understanding these interactions is therefore fundamental for modern engineering, bridging the gap between two vital domains of energy.
+By unifying these principles, electromechanical modeling enables precise control and efficient energy conversion across applications, from small actuators in robotics to large-scale industrial machinery. Understanding these interactions is fundamental for modern engineering, bridging the gap between two vital domains of energy.
