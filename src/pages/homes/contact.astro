@@ -1,0 +1,95 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+
+import { YouTube } from 'astro-embed';
+
+import Button from '~/components/ui/Button.astro';
+import Image from '~/components/common/Image.astro';
+
+import appStoreImg from '~/assets/images/app-store.png';
+const appStoreDownloadLink = 'https://github.com/arthelokyo/astrowind';
+import googlePlayImg from '~/assets/images/google-play.png';
+const googlePlayDownloadLink = 'https://github.com/arthelokyo/astrowind';
+
+import domesticEmailImg from '~/assets/images/domestic-email.png';
+import internationalEmailImg from '~/assets/images/international-email.png';
+
+const metadata = {
+  title: 'Contact',
+};
+---
+
+<Layout metadata={metadata}>
+  <Hero>
+    <!-- Title -->
+    <Fragment slot="title">Contact Information</Fragment>
+
+    <!-- Main content -->
+    <Fragment slot="content">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">Connect with Me</h3>
+
+      <p class="mb-4">
+        I’m active on social media, sharing insights about machine learning, AI research trends, and educational materials:
+      </p>
+      <ul class="list-disc list-inside mb-6">
+        <li><a href="https://x.com/hankyu_kim" target="_blank" class="text-blue-600 hover:underline">X</a></li>
+        <li><a href="https://www.linkedin.com/in/hankyu-kim-hardworker/" target="_blank" class="text-blue-600 hover:underline">LinkedIn</a></li>
+      </ul>
+
+      <p class="mb-6 text-red-600 font-semibold">
+        Note: Someone is falsely using my name and image online (e.g., on GitBook) for a scam. I am not affiliated with any project called “AI Protocol.” If you have been contacted by someone pretending to be me, please get in touch.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">Contact Me</h3>
+      <p class="mb-4">For general inquiries and personal correspondence, you can reach out via email:</p>
+
+      <div class="flex flex-wrap justify-center mb-6">
+        <Image src={domesticEmailImg} alt="Domestic Email" width={200} />
+      </div>
+
+      <p class="mb-6">
+        (Note that some email providers may sort custom email domains into spam. To ensure my response reaches your inbox, you may have to add me to your email program’s contact list.)
+      </p>
+
+      <p class="mb-6">
+        I value all the messages I receive and do my best to read everything. However, due to the high volume of emails, I may unfortunately not always be able to reply.
+      </p>
+
+      <p class="mb-6">
+        For US and job-related inquiries, please contact me via the following email address:
+      </p>
+
+      <div class="flex flex-wrap justify-center mb-6">
+        <Image src={internationalEmailImg} alt="International Email" width={200} />
+      </div>
+
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">Talks, Keynote & Workshop Invitations</h3>
+      <p class="mb-4">
+        I’m honored by every invitation to share my work, especially with audiences passionate about technical topics. However, I cannot accept all requests due to limited availability and other commitments. To help me evaluate and prioritize your event, please include the following details in your email:
+      </p>
+
+      <ul class="list-disc list-inside mb-6">
+        <li>The event name, date, and location (or note if it’s virtual).</li>
+        <li>Expected size, their technical background, and familiarity with topics like AI or machine learning.</li>
+        <li>Topics you’d like me to cover—I specialize in LLMs, AI research, deep learning, and PyTorch.</li>
+        <li>Speaker fees and whether travel expenses will be covered if applicable.</li>
+      </ul>
+
+      <p>Thank you for reaching out, and I look forward to contributing to your event and engaging with your audience!</p>
+    </Fragment>
+
+    <!-- YouTube Video -->
+    <Fragment slot="image">
+      <div class="max-w-3xl mx-auto">
+        <YouTube id="axBntOUGQWo" title="Introduction of autonomous driving" />
+      </div>
+      <style is:inline>
+        lite-youtube {
+          margin: 0 auto;
+          max-width: 100%;
+        }
+      </style>
+    </Fragment>
+  </Hero>
+</Layout>

@@ -127,8 +127,8 @@ export const headerData = {
       ],
     },
     {
-      text: 'About Me',
-      href: 'homes/personal',
+      text: 'Contact',
+      href: 'homes/contact',
     },
   ],
   // actions: [{ text: 'Download', href: 'https://github.com/arthelokyo/astrowind', target: '_blank' }],
