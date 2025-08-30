@@ -2,58 +2,9 @@ import { getPermalink, getBlogPermalink, getAsset } from './utils/permalinks';
 
 export const headerData = {
   links: [
-    // {
-    //   text: 'Programming',
-    //   links: [
-    //     {
-    //       text: 'SaaS',
-    //       href: getPermalink('/homes/saas'),
-    //     },
-    //     {
-    //       text: 'Startup',
-    //       href: getPermalink('/homes/startup'),
-    //     },
-    //     {
-    //       text: 'Mobile App',
-    //       href: getPermalink('/homes/mobile-app'),
-    //     },
-    //     {
-    //       text: 'Personal',
-    //       href: getPermalink('/homes/personal'),
-    //     },
-    //   ],
-    // },
     {
       text: 'System Modeling',
       links: [
-        // {
-        //   text: 'Features (Anchor Link)',
-        //   href: getPermalink('/#features'),
-        // },
-        // {
-        //   text: 'Services',
-        //   href: getPermalink('/services'),
-        // },
-        // {
-        //   text: 'Pricing',
-        //   href: getPermalink('/pricing'),
-        // },
-        // {
-        //   text: 'About us',
-        //   href: getPermalink('/about'),
-        // },
-        // {
-        //   text: 'Contact',
-        //   href: getPermalink('/contact'),
-        // },
-        // {
-        //   text: 'Terms',
-        //   href: getPermalink('/terms'),
-        // },
-        // {
-        //   text: 'Privacy policy',
-        //   href: getPermalink('/privacy'),
-        // },
         {
           text: 'Dynamics',
           href: getPermalink('dynamics', 'post'),
@@ -76,28 +27,16 @@ export const headerData = {
       text: 'Control',
       links: [
         {
-          text: 'Lead Generation',
-          href: getPermalink('/landing/lead-generation'),
+          text: 'Automatic Control',
+          href: getPermalink('/'),
         },
         {
-          text: 'Long-form Sales',
-          href: getPermalink('/landing/sales'),
+          text: 'PID Control',
+          href: getPermalink('/'),
         },
         {
-          text: 'Click-Through',
-          href: getPermalink('/landing/click-through'),
-        },
-        {
-          text: 'Product Details (or Services)',
-          href: getPermalink('/landing/product'),
-        },
-        {
-          text: 'Coming Soon or Pre-Launch',
-          href: getPermalink('/landing/pre-launch'),
-        },
-        {
-          text: 'Subscription',
-          href: getPermalink('/landing/subscription'),
+          text: 'Dynamic Compensator',
+          href: getPermalink('/'),
         },
       ],
     },
@@ -105,24 +44,44 @@ export const headerData = {
       text: 'PhysicalAI',
       links: [
         {
-          text: 'Blog List',
-          href: getBlogPermalink(),
+          text: 'ACT',
+          href: getPermalink('/'),
         },
         {
-          text: 'Article',
-          href: getPermalink('get-started-website-with-astro-tailwind-css', 'post'),
+          text: 'Diffusion Policy',
+          href: getPermalink('/'),
         },
         {
-          text: 'Article (with MDX)',
-          href: getPermalink('markdown-elements-demo-post', 'post'),
+          text: 'RT-2',
+          href: getPermalink('/'),
         },
         {
-          text: 'Category Page',
-          href: getPermalink('tutorials', 'category'),
+          text: 'OpenVLA',
+          href: getPermalink('/'),
         },
         {
-          text: 'Tag Page',
-          href: getPermalink('astro', 'tag'),
+          text: 'Pi0',
+          href: getPermalink('/'),
+        },
+      ],
+    },
+        {
+      text: 'RL',
+      links: [
+        { text: 'Q-Learning',
+          href: getPermalink('/'),
+        },
+        { text: 'Policy Gradient',
+          href: getPermalink('/'),
+        },
+        { text: 'Actor-Critic',
+          href: getPermalink('/'),
+        },
+        { text: 'TRPO',
+          href: getPermalink('/'),
+        },
+        { text: 'PPO',
+          href: getPermalink('/'),
         },
       ],
     },
