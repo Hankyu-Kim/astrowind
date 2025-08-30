@@ -2,10 +2,10 @@
 import type { Form as Props } from '~/types';
 import Button from '~/components/ui/Button.astro';
 
-const { inputs, textarea, disclaimer, button = 'Contact us', description = '' } = Astro.props;
+const { inputs, textarea, disclaimer, button = 'Send', description = '' } = Astro.props;
 ---
 
-<form>
+<form action="https://formspree.io/f/xovndano" method="POST">
   {
     inputs &&
       inputs.map(

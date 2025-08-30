@@ -1,0 +1,79 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import ContactUs from '~/components/widgets/Contact.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+
+const metadata = {
+  title: 'Connect',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- HeroText Widget ******************* -->
+
+  <HeroText tagline="Connect" title="Let's Connect!" />
+
+  <ContactUs
+    id="form"
+    title="Get in Touch"
+    subtitle="Whether you’d like to collaborate, share feedback, or simply say hello, I’d love to hear from you."
+    inputs={[
+      {
+        type: 'text',
+        name: 'name',
+        label: 'Name',
+      },
+      {
+        type: 'email',
+        name: 'email',
+        label: 'Email',
+      },
+    ]}
+    textarea={{
+      label: 'Message',
+    }}
+    disclaimer={{
+      label:
+        'By submitting this contact form, you acknowledge and agree to the collection of your personal information.',
+    }}
+    description="I will check your message and get back to you as soon as possible."
+  />
+
+  <!-- Features2 Widget ************** -->
+
+  <Features2
+    title="The position I'm looking for"
+    items={[
+      {
+        title: 'AI Researcher / Engineer',
+        description: `I specialize in Physical AI, an emerging field at the intersection of AI and robotics. With experience in both areas, I aim to develop intelligent systems that can perceive, reason, and act in the real world. I’m excited about opportunities in research or startups driving innovation in physical AI applications.`,
+      },
+      {
+        title: 'Robotics Engineer',
+        description:
+          'With hands-on experience as an application engineer, I bring strong software skills for robot communication and debugging, controller design, and simulation. I can contribute to building reliable and scalable robotic systems.',
+      },
+      {
+        title: 'Control Engineer',
+        description:
+          'My academic background is in Control Engineering, and I have industry experience implementing dynamic simulation and control algorithms. I’m interested in system modeling and advanced control algorithm development.',
+      },
+      {
+        title: 'Phone',
+        description: 'Hidden for privacy',
+        icon: 'tabler:headset',
+      },
+      {
+        title: 'Email',
+        description: 'Please use the contact form above',
+        icon: 'tabler:mail',
+      },
+      {
+        title: 'Location',
+        description: 'Seoul, South Korea / San Francisco Bay Area, USA',
+        icon: 'tabler:map-pin',
+      },
+    ]}
+  />
+</Layout>
