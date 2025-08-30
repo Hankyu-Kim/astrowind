@@ -360,29 +360,31 @@ I am now pursuing my Master's in ECE at UCSC, exploring the intersection of robo
   ]}
 />
 
-  <!-- CallToAction Widget *********** -->
+<!-- CallToAction Widget *********** -->
 
-  <CallToAction
-    title="Let's create together"
-    subtitle="Ready to transform your vision into captivating designs?"
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Hire me',
-        href: '/',
-      },
-    ]}
-  />
+<CallToAction
+  title="Let's create together"
+  subtitle="Ready to change the world with the innovative idea?"
+  actions={[
+    {
+      variant: 'primary',
+      text: 'Hire Me',
+      href: '/connect',
+    },
+  ]}
+/>
 
-  <!-- BlogLatestPost Widget **************** -->
+
+  <!-- BlogLatestPosts Widget **************** -->
 
   <BlogLatestPosts
     id="blog"
-    title="Explore my insightful articles on my blog"
-    information={`Dive into a realm of design wisdom and creative inspiration, where you'll find invaluable insights, practical tips, and captivating narratives that elevate and enrich your creative journey.`}
+    title="Explore my latest thoughts on AI and robotics"
+    information={`From system modeling to reinforcement learning, I write about the ideas and experiments that shape my journey as an AI and robotics engineer. Check out my latest posts to learn and grow together.`}
   >
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
     </Fragment>
   </BlogLatestPosts>
+
 </Layout>
