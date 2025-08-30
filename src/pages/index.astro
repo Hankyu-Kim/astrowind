@@ -180,120 +180,122 @@ I am now pursuing my Master's in ECE at UCSC, exploring the intersection of robo
   />
 
   <!-- Content Widget **************** -->
+<Content
+  id="portfolio"
+  title="Exploring Robotics through Simulation and Real-World Experiments"
+  subtitle="A journey from foundational control methods to advanced AI-driven robotics. Discover how simulations, deep learning, and reinforcement learning converge to bring robotic intelligence closer to reality."
+  isReversed
+  items={[
+    {
+      title: 'Description:',
+      description:
+        'Before studying VLA, I implemented the ACT model using a simulator with transformers. Training data was collected from a top and front camera to capture object positions and grasping actions. The model was then deployed on a real robot arm to validate grasping performance.',
+    },
+    {
+      title: 'Role:',
+      description:
+        'Conducted research on ACT concepts and papers, and implemented the project using Hugging Face resources.',
+    },
+  ]}
+  image={{
+    src: '~/assets/images/lerobot.png',
+    alt: 'Lerobot Training Image',
+  }}
+  callToAction={{
+    target: '_blank',
+    text: 'Go to the project',
+    icon: 'tabler:chevron-right',
+    href: '/',
+  }}
+>
+  <Fragment slot="content">
+    <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+      Project 1: <br /><span class="text-2xl">Lerobot model training using simulator for real-world implementation</span>
+    </h3>
+  </Fragment>
 
-  <Content
-    id="porfolio"
-    title="Elevating visual narratives"
-    subtitle="Embark on a design journey that surpasses pixels, entering a realm of imagination. Explore my portfolio, where passion and creativity converge to shape enthralling visual narratives."
-    isReversed
-    items={[
-      {
-        title: 'Description:',
-        description:
-          'Developed a comprehensive brand identity for a tech startup, Tech Innovators, specializing in disruptive innovations. The goal was to convey a modern yet approachable image that resonated with both corporate clients and tech enthusiasts.',
-      },
-      {
-        title: 'Role:',
-        description:
-          'Led the entire branding process from concept to execution. Created a dynamic logo that symbolized innovation, selected a vibrant color palette, and I designed corporate stationery, website graphics, and social media assets.',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1658248165252-71e116af1b34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=928&q=80',
-      alt: 'Tech Design Image',
-    }}
-    callToAction={{
-      target: '_blank',
-      text: 'Go to the project',
-      icon: 'tabler:chevron-right',
-      href: '#',
-    }}
-  >
-    <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
-        Project 1: <br /><span class="text-2xl">lerobot model 연구개발 - 실물, simulator</span>
-      </h3>
-    </Fragment>
+  <Fragment slot="bg">
+    <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+  </Fragment>
+</Content>
 
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
-    </Fragment>
-  </Content>
+<!-- Content Widget **************** -->
 
-  <!-- Content Widget **************** -->
+<Content
+  isReversed
+  isAfterContent={true}
+  items={[
+    {
+      title: 'Description:',
+      description:
+        'My first project involving a robotic arm used the YOLOv8 model to detect object coordinates. These were communicated via ROS2 topics and applied to inverse kinematics for a 4-axis robotic arm to perform pick-and-place tasks. Training was based on labeled images extracted from videos, followed by real-world testing.',
+    },
+    {
+      title: 'Role:',
+      description:
+        'Implemented Inverse Kinematics and PID control, and designed behavior sequences using Groot’s behavior tree editor for structured robot control.',
+    },
+  ]}
+  image={{
+    src: '~/assets/images/roarm.png',
+    alt: 'RoArm Pick and Place Project Image',
+  }}
+  callToAction={{
+    target: '_blank',
+    text: 'Go to the project',
+    icon: 'tabler:chevron-right',
+    href: '/',
+  }}
+>
+  <Fragment slot="content">
+    <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+      Project 2: <br /><span class="text-2xl">RoArm-M2-S Pick & Place (Personal project)</span>
+    </h3>
+  </Fragment>
 
-  <Content
-    isReversed
-    isAfterContent={true}
-    items={[
-      {
-        title: 'Description:',
-        description:
-          'Designed a captivating event poster for an art and music festival, "ArtWave Fusion," aiming to showcase the synergy between visual art and music genres.',
-      },
-      {
-        title: 'Role:',
-        description: `Translated the festival's creative theme into a visually striking poster. Used bold typography, vibrant colors, and abstract elements to depict the fusion of art and music. Ensured the design captured the festival's vibrant atmosphere.`,
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1619983081563-430f63602796?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
-      alt: 'Art and Music Poster Image',
-    }}
-    callToAction={{
-      target: '_blank',
-      text: 'Go to the project',
-      icon: 'tabler:chevron-right',
-      href: '#',
-    }}
-  >
-    <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
-        Project 2: <br /><span class="text-2xl">Roarm pick & place - Inverse Kinematics, PID 제어 적용</span>
-      </h3>
-    </Fragment>
+  <Fragment slot="bg">
+    <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+  </Fragment>
+</Content>
 
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
-    </Fragment>
-  </Content>
+<!-- Content Widget **************** -->
 
-  <!-- Content Widget **************** -->
+<Content
+  isReversed
+  isAfterContent={true}
+  items={[
+    {
+      title: 'Description:',
+      description:
+        'Genesis AI is a generative AI-powered simulator that creates environments from text prompts, enabling users to control robots manually or through reinforcement learning. Currently, robots can complete simple missions, with plans to expand toward more complex environments, missions, and robot models.',
+    },
+    {
+      title: 'Role:',
+      description: 'Ongoing project; currently developing and expanding features.',
+    },
+  ]}
+  image={{
+    src: '~/assets/images/genesis.png',
+    alt: 'Genesis AI Simulator Image',
+  }}
+  callToAction={{
+    target: '_blank',
+    text: 'Go to the project',
+    icon: 'tabler:chevron-right',
+    href: 'https://github.com/Hankyu-Kim/Genesis',
+  }}
+>
+  <Fragment slot="content">
+    <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+      Project 3: <br /><span class="text-2xl">Genesis AI - Generative Simulator</span>
+    </h3>
+  </Fragment>
 
-  <Content
-    isReversed
-    isAfterContent={true}
-    items={[
-      {
-        title: 'Description:',
-        description: `Redesigned the e-commerce website for an eco-conscious fashion brand, GreenVogue. The objective was to align the brand's online presence with its sustainable ethos and improve user experience.`,
-      },
-      {
-        title: 'Role:',
-        description: `Conducted a thorough analysis of the brand's values and customer base to inform the design direction. Created a visually appealing interface with intuitive navigation, highlighting sustainable materials, and integrating a user-friendly shopping experience.`,
-      },
-    ]}
-    image={{
-      src: 'https://plus.unsplash.com/premium_photo-1683288295841-782fa47e4770?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
-      alt: 'Fashion e-commerce Image',
-    }}
-    callToAction={{
-      target: '_blank',
-      text: 'Go to the project',
-      icon: 'tabler:chevron-right',
-      href: '#',
-    }}
-  >
-    <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
-        Project 3: <br /><span class="text-2xl">Genesis AI (현재 진행중) - 생성형 시뮬레이터</span>
-      </h3>
-    </Fragment>
+  <Fragment slot="bg">
+    <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+  </Fragment>
+</Content>
 
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
-    </Fragment>
-  </Content>
 
   <!-- Testimonials Widget *********** -->
 
