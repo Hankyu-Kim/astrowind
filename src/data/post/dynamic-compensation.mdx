@@ -1,0 +1,134 @@
+---
+publishDate: 2025-08-31T00:00:00Z
+author: Hankyu Kim
+title: Comparing Compensation Techniques
+excerpt: Compensation techniques such as PD, Lead, PI, and Lag are essential in control engineering. They shape transient response, steady-state error, and stability margins by modifying the frequency characteristics of systems.
+image: https://images.unsplash.com/photo-1611329857570-f02f340e7378?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: System Modeling
+tags:
+  - modeling
+  - control
+  - compensation
+metadata:
+  canonical: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css
+---
+
+Compensation techniques are used to improve system performance by shaping the dynamics. Among the most important methods are PD compensation, Lead compensation, PI compensation, and Lag compensation. Each method influences transient response, steady-state accuracy, and stability margins in different ways.
+
+---
+
+### PD Compensation
+
+The transfer function of a proportional–derivative (PD) controller is:
+
+$$
+D_c(s) = T_d s + 1
+$$
+
+in frequency domain,
+
+$$
+D_c(j\omega) = T_d j\omega + 1
+$$
+
+where break frequency is:
+
+$$
+\omega = \frac{1}{T_d}
+$$
+
+The PD controller improves transient response by increasing damping and reducing overshoot. However, because it amplifies high-frequency signals, it is sensitive to noise.
+
+- **Effect**: Improves transient response.  
+- **Limitation**: Sensitive to high-frequency measurement noise.  
+
+![Super wide](~/assets/images/PD-controller.jpg)
+
+---
+
+### Lead Compensator
+
+The transfer function of a lead compensator is:
+
+$$
+D_c(s) = \frac{T s + 1}{\alpha T s + 1}, \quad 0 < \alpha < 1
+$$
+
+where break frequency is:
+
+$$
+\omega = \frac{1}{T}, \qquad \omega_{p} = \frac{1}{\alpha T}
+$$
+
+The lead compensator provides a phase lead effect, improving system stability and increasing the phase margin. This makes the system more robust while enhancing transient performance.
+
+- **Effect**: Improves stability and phase margin.  
+- **Limitation**: Does not directly eliminate steady-state error.  
+
+![Super wide](~/assets/images/Lead-Compensator.jpg)
+
+---
+
+### PI Compensation
+
+The transfer function of a proportional–integral (PI) controller is:
+
+$$
+D_c(s) = \frac{K}{s}(s + \frac{1}{T_i})
+$$
+
+in frequency domain,
+
+$$
+D_c(jw) = \frac{k}{jw}(jw + \frac{1}{T_i})
+$$
+
+where break frequency is:
+
+$$
+\omega = \frac{1}{T_i} 
+$$
+
+The PI controller eliminates steady-state error by boosting low-frequency gain to infinity. This ensures accuracy in tracking, but excessive gain may slow down the response and cause oscillations.
+
+- **Effect**: Eliminates steady-state error.  
+- **Limitation**: May slow response and increase oscillations.  
+
+![Super wide](~/assets/images/PI-controller.jpg)
+
+---
+
+### Lag Compensator
+
+The transfer function of a lag compensator is:
+
+$$
+D_c(s) = \beta \frac{ s + 1}{T s + 1}, \quad \beta > 1
+$$
+
+where break frequency is:
+
+$$
+\omega = \frac{1}{\beta T}, \qquad \omega_{p} = \frac{1}{T}
+$$
+
+The lag compensator moderately increases low-frequency gain, which reduces steady-state error without significantly changing the transient response. It provides a safer but less aggressive way to improve accuracy compared to PI.
+
+- **Effect**: Reduces steady-state error.  
+- **Limitation**: Cannot completely eliminate steady-state error.  
+
+![Super wide](~/assets/images/Lag-Compensator.jpg)
+
+---
+
+### Summary
+
+- **PD vs Lead**: Both enhance transient performance.  
+  - PD improves response speed but is noise-sensitive.  
+  - Lead improves stability and robustness.  
+
+- **PI vs Lag**: Both improve steady-state accuracy.  
+  - PI completely eliminates steady-state error but may slow the system.  
+  - Lag reduces steady-state error more gently while keeping transients intact.  
+
+Together, these compensation methods provide flexible tools for shaping system behavior in automatic control.
