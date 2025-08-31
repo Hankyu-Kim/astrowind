@@ -1,5 +1,5 @@
 site:
-  name: TechBlog
+  name: Hankyu Kim's Blog
   site: 'https://hankyukim.com'
   base: '/'
   trailingSlash: false
@@ -9,14 +9,14 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: TechBlog
-    template: '%s — TechBlog'
+    default: Hankyu Kim's Blog
+    template: "%s — Hankyu Kim's Blog"
   description: "\U0001F680 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs."
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: TechBlog
+    site_name: Hankyu Kim's Blog
     images:
       - url: '~/assets/images/default.png'
         width: 1200
