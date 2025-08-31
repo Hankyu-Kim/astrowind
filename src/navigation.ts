@@ -53,7 +53,7 @@ export const headerData = {
       links: [
         {
           text: 'ACT',
-          href: getPermalink('/'),
+          href: getPermalink('act', 'post'),
         },
         {
           text: 'Diffusion Policy',

@@ -1,0 +1,133 @@
+---
+publishDate: 2025-09-01T00:00:00Z
+author: Hankyu Kim
+title: Action Chunking with Transformers (ACT)
+excerpt: Action Chunking with Transformers (ACT) combines the representational strength of autoencoders with the contextual modeling of transformers, producing compact latent variables that generate coherent action sequences.
+image: https://images.unsplash.com/photo-1671377335998-6e6360639d6c?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0
+category: PhysicalAI
+tags:
+  - action chunk
+  - transformer
+  - attention
+metadata:
+  canonical: https://arxiv.org/abs/2304.13705
+---
+
+Action Chunking with Transformers (ACT) is not one of the standard Vision-Language-Action (VLA) models, but it shares the same motivation: linking perception to structured, sequential actions. ACT combines the representational strength of autoencoders with the contextual modeling of transformers, generating action chunks—compact latent variables that unfold into sequences of actions.
+
+---
+
+### Autoencoder vs. Variational Autoencoder
+
+An autoencoder (AE) learns to map input data into a lower-dimensional latent space and reconstruct it:
+
+$$
+A \;\;\longrightarrow\;\; Z \;\;\longrightarrow\;\; A
+$$
+
+Here, \(Z\) is the compressed representation of the input.
+
+A variational autoencoder (VAE) extends this by modeling the latent space as a distribution. Instead of a single \(Z\), the model learns a mean and variance, enabling stochastic sampling:
+
+$$
+A \;\;\longrightarrow\;\; Z \;\;\longrightarrow\;\; A'
+$$
+
+This allows both reconstruction and generation of new, plausible samples.
+
+---
+
+### Structure of ACT
+
+ACT is built on a Conditional Variational Autoencoder (CVAE) framework combined with transformers.
+
+![ACT Architecture](~/assets/images/act.png)
+
+([Paper link](https://arxiv.org/abs/2304.13705))
+
+- Encoder: Takes the current state (e.g., joint positions) and encodes it into a latent distribution \(Z\) using a transformer.  
+- Conditioning: Contextual information such as sensory inputs or goals (here, four 480×640 images) conditions the latent space.  
+- Decoder: Uses a transformer to reconstruct or predict future action sequences from the latent representation.
+
+To break this into two parts:
+
+1. CVAE Encoder  
+   Encodes an action sequence into a latent distribution (mean and variance):  
+
+   $$
+   \text{CVAE Encoder} \;\;=\;\; \text{left transformer encoder}
+   $$
+
+2. CVAE Decoder  
+   Samples from the latent space and predicts the action sequence conditioned on context:  
+
+   $$
+   \text{CVAE Decoder} \;\;=\;\; \text{center transformer encoder + right transformer decoder}
+   $$
+
+---
+
+### Transformers: A Quick Recap
+
+Transformers differ from recurrent networks (RNNs, LSTMs) by processing input sequences in parallel while still capturing long-range dependencies.  
+
+- Query (Q): Representation of the current token or state.  
+- Key (K): Encoded representations of all tokens.  
+- Value (V): Contextual embeddings carrying semantic content.  
+
+The attention mechanism computes relevance between queries and keys, then aggregates values accordingly:
+
+$$
+\text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$
+
+This enables selective recall of relevant past information when generating the next action.
+
+---
+
+### Multi-Headed Attention
+
+Instead of a single attention map, transformers compute multiple attention heads in parallel. Each head captures different relational patterns:
+
+$$
+\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h)W^O
+$$
+
+For example, GPT-3 uses 96 heads, providing highly diverse contextual perspectives.
+
+---
+
+### Encoder Layer
+
+The encoder learns how tokens relate to one another within a sequence. Each layer consists of:
+
+1. Input Embedding – mapping inputs to vectors  
+2. Positional Encoding – preserving order information  
+3. Multi-Head Self-Attention – capturing inter-token dependencies  
+4. Feed-Forward Network (FFN) – nonlinear feature transformation  
+
+This stack is repeated across multiple layers, producing progressively higher-level representations of the input sequence.
+
+---
+
+### Decoder Layer
+
+The decoder generates output sequences step by step. Each layer consists of:
+
+1. Masked Multi-Head Self-Attention – prevents the model from attending to future tokens during generation  
+2. Cross-Attention – connects encoder outputs to the decoder’s state  
+3. Feed-Forward Network – nonlinear transformation  
+4. Linear Projection + Softmax – produces the probability distribution for the next token  
+5. Autoregressive Generation – predicted tokens are fed back until an end-of-sequence token is produced  
+
+---
+
+### Summary
+
+ACT leverages the compression power of CVAEs with the contextual modeling of transformers. By chunking sequences into latent actions and decoding them under context, ACT can:  
+
+- Predict future behaviors  
+- Reconstruct plausible trajectories  
+- Generate new action patterns  
+
+This makes it a powerful framework for robotics, control, and other sequential decision-making tasks where both memory and adaptability are critical.  
