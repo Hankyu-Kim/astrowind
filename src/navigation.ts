@@ -3,6 +3,10 @@ import { getPermalink, getBlogPermalink, getAsset } from './utils/permalinks';
 export const headerData = {
   links: [
     {
+      text: 'Home',
+      href: getPermalink('/'),
+    },
+    {
       text: 'System Modeling',
       links: [
         {
@@ -69,26 +73,26 @@ export const headerData = {
         },
       ],
     },
-        {
-      text: 'RL',
-      links: [
-        { text: 'Q-Learning',
-          href: getPermalink('/'),
-        },
-        { text: 'Policy Gradient',
-          href: getPermalink('/'),
-        },
-        { text: 'Actor-Critic',
-          href: getPermalink('/'),
-        },
-        { text: 'TRPO',
-          href: getPermalink('/'),
-        },
-        { text: 'PPO',
-          href: getPermalink('/'),
-        },
-      ],
-    },
+    // {
+    //   text: 'RL',
+    //   links: [
+    //     { text: 'Q-Learning',
+    //       href: getPermalink('/'),
+    //     },
+    //     { text: 'Policy Gradient',
+    //       href: getPermalink('/'),
+    //     },
+    //     { text: 'Actor-Critic',
+    //       href: getPermalink('/'),
+    //     },
+    //     { text: 'TRPO',
+    //       href: getPermalink('/'),
+    //     },
+    //     { text: 'PPO',
+    //       href: getPermalink('/'),
+    //     },
+    //   ],
+    // },
     {
       text: 'Contact',
       href: 'homes/contact',
