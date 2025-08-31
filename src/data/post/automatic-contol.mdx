@@ -1,0 +1,51 @@
+---
+publishDate: 2025-08-31T00:00:00Z
+author: Hankyu Kim
+title: Automatic Control and Feedback Systems
+excerpt: Automatic control adjusts a system’s input so that its output follows a desired reference, ensuring stability, precision, and robustness across engineering applications.
+image: https://images.unsplash.com/photo-1645418093090-e6f8497aecbd?q=80&w=654&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: Control
+tags:
+  - modeling
+  - control
+  - feedback
+metadata:
+  canonical: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css
+---
+
+Automatic control is the discipline concerned with **adjusting the inputs of a system so that its outputs follow a desired reference.** This idea is at the foundation of modern engineering, appearing in applications such as vehicle regulation, industrial processes, and robotics. By using feedback, engineers can design systems that remain stable, reject disturbances, and track reference signals with precision.
+
+### linear time-invariant (LTI) system
+At the heart of control theory lies the concept of the LTI system, where **the output is linearly related to the input** and **output does not change regardless of when the input is applied.**
+
+### Control application
+There are normally two control application.
+- Tracking : following the reference
+- Regulation : regardless of noise, staying zero
+
+### A block diagram of a closed loop automatic control system
+A general block representation of a feedback system can be described as:
+
+![Super wide](~/assets/images/automatic-control.png)
+
+(where **Controller** calculate control input to make control output to follow control reference, **Actuator** takes control inputs and converting them into physical forces, **Process** represents system dynamics with differential equation, and **Sensor** provides measured output data for feedback control.)
+
+### Description
+The main elements of a feedback control system are the process (plant), actuator, sensor, and controller. The process is the system being controlled, such as a motor or chemical reactor. The actuator applies the control action, such as a valve or motor. The sensor measures the output, and the controller determines the corrective input.
+
+The output is measured by a sensor and fed back to the controller. The controller compares the reference with the actual output and generates corrective input to minimize the error.
+
+Control systems are often categorized into two forms. In open-loop control, the controller applies input commands without considering the actual output. This approach is simple but relies on an accurate model and negligible disturbances. In contrast, closed-loop (feedback) control continuously compares the output with the reference, adjusting the system input to reduce error. Feedback makes the system more accurate and robust but requires sensors and careful design.
+
+To summarize,
+- **Closed-loop control** (feedback control) is **necessary for precise-tracking control.**
+- **Open-loop control** (feed forward control) is used **when you know the model** which is the relationship between input and output.
+
+### 4 index of control performace
+For a control system to function properly, several key considerations must be satisfied.
+1. **Stability** is essential, meaning that the system should not oscillate uncontrollably or diverge.
+2. **Tracking performance** requires how fast the output to follow the reference with minimal error.
+3. **Disturbance rejection** ensures that external inputs do not significantly affect system behavior.
+4. **Robustness** guarantees that the system can tolerate modeling inaccuracies and parameter variations.
+
+In summary, open-loop control is simple but vulnerable to disturbances, while closed-loop feedback enables accuracy, robustness, and adaptability. Automatic control and feedback thus form the backbone of modern engineered systems. By ensuring stability, precision, and robustness, feedback control allows complex systems to operate reliably under uncertainty.
