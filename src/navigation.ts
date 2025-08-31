@@ -21,6 +21,10 @@ export const headerData = {
           text: 'Heat transfer',
           href: getPermalink('heat-transfer', 'post'),
         },
+        {
+          text: 'Fluid mechanics',
+          href: getPermalink('fluid-systems', 'post'),
+        }
       ],
     },
     {
@@ -28,15 +32,15 @@ export const headerData = {
       links: [
         {
           text: 'Automatic Control',
-          href: getPermalink('/'),
+          href: getPermalink('automatic-contol', 'post'),
         },
         {
           text: 'PID Control',
-          href: getPermalink('/'),
+          href: getPermalink('pid-control', 'post'),
         },
         {
-          text: 'Dynamic Compensator',
-          href: getPermalink('/'),
+          text: 'Dynamic Compensation',
+          href: getPermalink('dynamic-compensation', 'post'),
         },
       ],
     },
