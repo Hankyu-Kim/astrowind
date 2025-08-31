@@ -1,5 +1,5 @@
 site:
-  name: TechBlog :)
+  name: TechBlog
   site: 'https://hankyukim.com'
   base: '/'
   trailingSlash: false
