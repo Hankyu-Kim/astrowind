@@ -1,0 +1,52 @@
+---
+publishDate: 2025-08-31T00:00:00Z
+author: Hankyu Kim
+title: PID Control
+excerpt: PID control is one of the most widely used techniques in engineering, combining proportional, integral, and derivative actions to achieve stability, precision, and robustness in dynamic systems.
+image: https://images.unsplash.com/photo-1563968559507-d87412ef19d6?q=80&w=1676&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: System Modeling
+tags:
+  - modeling
+  - control
+  - PID
+metadata:
+  canonical: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css
+---
+
+PID control is one of the most important and widely applied techniques in automatic control. It combines three fundamental actions—proportional, integral, and derivative—each contributing to the overall performance of the controller. Together, they allow engineers to regulate dynamic systems with accuracy, stability, and robustness.
+
+In the Laplace domain, a general PID controller is expressed as:
+
+$$
+D(s) = K_p + \frac{K_i}{s} + K_d s
+$$
+
+where \( K_p \) is the proportional gain, \( K_i \) is the integral gain, and \( K_d \) is the derivative gain.
+
+The **proportional action** produces a control signal that is directly proportional to the error:
+
+$$
+u(t) = K_p e(t)
+$$
+
+This term provides an immediate response to error, improving responsiveness. However, proportional control alone cannot completely eliminate steady-state error.
+
+The **integral action** accumulates error over time:
+
+$$
+u(t) = K_i \int e(t) dt
+$$
+
+By integrating the error, this term ensures that even small persistent errors are driven to zero, eliminating steady-state offset. However, excessive integral action can slow down the system or cause oscillations.
+
+The **derivative action** predicts the trend of error change:
+
+$$
+u(t) = K_d \frac{de(t)}{dt}
+$$
+
+By responding to the rate of change of error, derivative control introduces a damping effect. This helps reduce overshoot and improve stability, but derivative terms are sensitive to noise and must be carefully tuned.
+
+In practice, the three terms are combined so that proportional action provides responsiveness, integral action ensures accuracy in the long run, and derivative action stabilizes the response. The balance among \( K_p \), \( K_i \), and \( K_d \) defines the overall system behavior. Engineers often tune these gains iteratively or use systematic methods such as Ziegler–Nichols rules.
+
+Ultimately, PID control represents a simple yet powerful method for regulating dynamic systems. From temperature regulation and motor speed control to flight systems and industrial processes, PID controllers remain a cornerstone of control engineering due to their intuitive structure and wide applicability.
