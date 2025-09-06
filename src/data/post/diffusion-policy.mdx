@@ -4,7 +4,7 @@ author: Hankyu Kim
 title: Diffusion Policy
 excerpt: Diffusion-based models such as DDPM and their use in policy learning rely on denoising mechanisms, UNet architectures, and structured action representations to capture complex sequential behaviors.
 image: https://images.unsplash.com/photo-1531169509526-f8f1fdaa4a67?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
-category: Machine Learning
+category: PhysicalAI
 tags:
   - diffusion
   - unet
@@ -33,16 +33,16 @@ But here is denoiser, we can use 'Noisy trajectory' instead of 'Noisy Image' to 
 
 ### UNet Architecture
 
-The noise predictor network in DDPM is typically a **UNet**, a convolutional encoder–decoder with skip connections.
+The noise predictor network in DDPM is typically a UNet, a convolutional encoder–decoder with skip connections.
 
-- **Encoder**: progressively downsamples the input to extract hierarchical features.  
-- **Decoder**: upsamples and reconstructs, combining semantic and spatial information.  
+- Encoder: progressively downsamples the input to extract hierarchical features.  
+- Decoder: upsamples and reconstructs, combining semantic and spatial information.  
 
 This structure is effective for tasks requiring high-resolution outputs, such as segmentation, super-resolution, and diffusion-based generation.
 
 ![unet](~/assets/images/unet.png)
 
-The training objective often uses **mean squared error (MSE)** between predicted and true noise:
+The training objective often uses mean squared error (MSE) between predicted and true noise:
 
 $$
 L = \frac{1}{N} \sum_{i=1}^{N} \big( y_i - \hat{y}_i \big)^2
@@ -52,19 +52,19 @@ $$
 
 ### Features
 
-Diffusion Policy applies the denoising diffusion process to **policy learning from demonstrations**. Instead of reconstructing images, the model generates **action sequences**.
+Diffusion Policy applies the denoising diffusion process to policy learning from demonstrations. Instead of reconstructing images, the model generates action sequences.
 
 Key characteristics:
 
-- **Policy learning from demonstrations**: imitation learning.
-- **Supervised regression**: a supervised learning setup where the output consists of continuous values.
-- **Sequential correlation**: captures temporal dependencies in robot actions.  
-- **Multimodal distribution**: allows sampling diverse but plausible actions.  
+- Policy learning from demonstrations: imitation learning.
+- Supervised regression: a supervised learning setup where the output consists of continuous values.
+- Sequential correlation: captures temporal dependencies in robot actions.  
+- Multimodal distribution: allows sampling diverse but plausible actions.  
 
 ![pusht](~/assets/images/pusht.png)
 
-- **Action representations**: how the policy outputs are structured (e.g., Gaussian mixtures, quantized actions).  
-- **Implicit policies**: leverage the diffusion process to generate actions step by step, without explicit reward optimization.
+- Action representations: how the policy outputs are structured (e.g., Gaussian mixtures, quantized actions).  
+- Implicit policies: leverage the diffusion process to generate actions step by step, without explicit reward optimization.
 
 ---
 
@@ -74,21 +74,21 @@ Key characteristics:
 
 ([Paper link](https://arxiv.org/pdf/2303.04137v4))
 
-The model takes **multi-view camera observations (cam1, cam2) and robot pose** as input.  
-The denoising network \( \epsilon_\theta \) is implemented using either a **ResNet-based CNN** or a **time-series diffusion Transformer**.  
-The output is an **action sequence \( A_t \)** over the prediction horizon.
+The model takes multi-view camera observations (top camera, wrist camera) and robot pose as input.  
+The denoising network (ε_θ) is implemented using either a ResNet-based CNN or a time-series diffusion Transformer.  
+The output is an action sequence \( A_t \) over the prediction horizon.
 
 Key aspects:
 
-- **Score function gradient**: learns the gradient of the log density, guiding the denoising process.  
-- **Stochastic Langevin dynamics**: applied at inference time to sample from the learned policy, improving stability compared to direct energy-based approaches.  
+- Score function gradient: learns the gradient of the log density, guiding the denoising process.  
+- Stochastic Langevin dynamics: applied at inference time to sample from the learned policy, improving stability compared to direct energy-based approaches.  
 
 ---
 
 ### Summary
 
-- **DDPM**: transforms white noise into structured outputs by iterative denoising.  
-- **UNet**: the backbone architecture for noise prediction.  
-- **Diffusion Policy**: applies diffusion modeling to sequential decision-making, enabling robust imitation of complex behaviors.  
+- DDPM: transforms white noise into structured outputs by iterative denoising.  
+- UNet: the backbone architecture for noise prediction.  
+- Diffusion Policy: applies diffusion modeling to sequential decision-making, enabling robust imitation of complex behaviors.  
 
-Together, these approaches provide a powerful framework for **learning policies in robotics and control** using probabilistic generative models.
+Together, these approaches provide a powerful framework for learning policies in robotics and control using probabilistic generative models.
