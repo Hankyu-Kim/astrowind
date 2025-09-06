@@ -48,6 +48,23 @@ export const headerData = {
         },
       ],
     },
+    // {
+    //   text: 'Robotics',
+    //   links: [
+    //     {
+    //       text: 'DH Parameters',
+    //       href: getPermalink('dh-parameters', 'post'),
+    //     },
+    //     {
+    //       text: 'Transformation Matrix',
+    //       href: getPermalink('transformation-matrix', 'post'),
+    //     },
+    //     {
+    //       text: 'Inverse Kinematics',
+    //       href: getPermalink('inverse-kinematics', 'post'),
+    //     },
+    //   ],
+    // },
     {
       text: 'PhysicalAI',
       links: [
@@ -73,29 +90,16 @@ export const headerData = {
         },
       ],
     },
-    // {
-    //   text: 'RL',
-    //   links: [
-    //     { text: 'Q-Learning',
-    //       href: getPermalink('/'),
-    //     },
-    //     { text: 'Policy Gradient',
-    //       href: getPermalink('/'),
-    //     },
-    //     { text: 'Actor-Critic',
-    //       href: getPermalink('/'),
-    //     },
-    //     { text: 'TRPO',
-    //       href: getPermalink('/'),
-    //     },
-    //     { text: 'PPO',
-    //       href: getPermalink('/'),
-    //     },
-    //   ],
-    // },
     {
-      text: 'Contact',
-      href: '/homes/contact',
+      text: 'More',
+      links: [
+        { text: 'Blog Lists',
+          href: getBlogPermalink(),
+        },
+        { text: 'Contact',
+          href: '/homes/contact',
+        },
+      ],
     },
   ],
   // actions: [{ text: 'Download', href: 'https://github.com/arthelokyo/astrowind', target: '_blank' }],
