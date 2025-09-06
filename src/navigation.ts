@@ -95,7 +95,7 @@ export const headerData = {
     // },
     {
       text: 'Contact',
-      href: 'homes/contact',
+      href: '/homes/contact',
     },
   ],
   // actions: [{ text: 'Download', href: 'https://github.com/arthelokyo/astrowind', target: '_blank' }],
