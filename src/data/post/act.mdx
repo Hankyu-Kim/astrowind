@@ -8,38 +8,49 @@ category: PhysicalAI
 tags:
   - action chunk
   - transformer
-  - attention
+  - vla
 metadata:
   canonical: https://arxiv.org/abs/2304.13705
 ---
 
-Action Chunking with Transformers (ACT) is not one of the standard Vision-Language-Action (VLA) models, but it shares the same motivation: linking perception to structured, sequential actions. ACT combines the representational strength of autoencoders with the contextual modeling of transformers, generating action chunks—compact latent variables that unfold into sequences of actions.
+Action Chunking with Transformers (ACT) is not one of the standard Vision-Language-Action (VLA) models, but it is the imitation learning policies trained from scratch that contributed physical ai ecosystem. Its input is robot current state and image as condition, and the output is 50 continuous action chunk. 
 
 ---
 
-### Autoencoder vs. Variational Autoencoder
+### Autoencoder, Variational Autoencoder, and Conditional VAE
 
-An autoencoder (AE) learns to map input data into a lower-dimensional latent space and reconstruct it:
-
-$$
-A \;\;\longrightarrow\;\; Z \;\;\longrightarrow\;\; A
-$$
-
-Here, \(Z\) is the compressed representation of the input.
-
-A variational autoencoder (VAE) extends this by modeling the latent space as a distribution. Instead of a single \(Z\), the model learns a mean and variance, enabling stochastic sampling:
+An **Autoencoder (AE)** compresses input data into a latent representation and then reconstructs it.  
+It is mainly used for feature extraction, dimensionality reduction, noise reduction, and input structure learning.
 
 $$
-A \;\;\longrightarrow\;\; Z \;\;\longrightarrow\;\; A'
+x \;\;\longrightarrow\;\; \text{encoder} \;\;\longrightarrow\;\; z \;\;\longrightarrow\;\; \text{decoder} \;\;\longrightarrow\;\; \hat{x}
 $$
 
-This allows both reconstruction and generation of new, plausible samples.
+Here, \(z\) is the compressed latent vector.
+
+A **Variational Autoencoder (VAE)** extends the AE by modeling the latent space as a probability distribution rather than a single point.  
+The encoder produces the parameters \(\mu\) and \(\sigma\) of a Gaussian distribution, from which a latent vector \(z\) is sampled.  
+This regularization enables smooth and continuous latent spaces, allowing both reconstruction and generation of new samples.
+
+$$
+x \;\;\longrightarrow\;\; \text{encoder} \;\;\longrightarrow\;\; 
+z \sim \mathcal{N}(\mu, \sigma^2) 
+\;\;\longrightarrow\;\; \text{decoder} \;\;\longrightarrow\;\; \hat{x}
+$$
+
+A **Conditional VAE (CVAE)** further extends the VAE by introducing a condition \(y\) (e.g., context, goals).  
+
+$$
+x \;\;\longrightarrow\;\; \text{encoder} \;\;\longrightarrow\;\; 
+z \sim \mathcal{N}(\mu, \sigma^2) 
+\;\;\longrightarrow\;\; \text{sampling, condition y} \;\;\longrightarrow\;\; \text{decoder} \;\;\longrightarrow\;\; \hat{x}
+$$
 
 ---
 
 ### Structure of ACT
 
-ACT is built on a Conditional Variational Autoencoder (CVAE) framework combined with transformers.
+ACT employs a CVAE to learn robot policies.  
 
 ![ACT Architecture](~/assets/images/act.png)
 
@@ -67,7 +78,7 @@ To break this into two parts:
 
 ---
 
-### Transformers: A Quick Recap
+### Recall) Transformers
 
 Transformers differ from recurrent networks (RNNs, LSTMs) by processing input sequences in parallel while still capturing long-range dependencies.  
 
