@@ -1,0 +1,128 @@
+---
+publishDate: 2025-09-07T00:00:00Z
+author: Hankyu Kim
+title: π₀
+excerpt: π₀ is an innovative VLA model that combines a vision–language backbone with an action expert module and flow matching, producing continuous action sequences from natural language and images.
+image: https://images.unsplash.com/photo-1625186823734-e581d48b7ce6?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: PhysicalAI
+tags:
+  - pi0
+  - flow-matching
+  - vla
+metadata:
+  canonical: https://roboticsconference.org/program/papers/10/
+---
+
+import { YouTube, Tweet, Vimeo } from 'astro-embed';
+
+### Introduction
+
+π₀ is a **Vision–Language–Action (VLA) model** that treats robot control as a sequence modeling problem. It takes natural language commands (e.g., *“pick up the apple”*) and visual observations as inputs, and produces robot actions as outputs. Unlike models that predict only single-step actions, π₀ generates **continuous chunks of 50 actions**, enabling smooth trajectories rather than discrete movements.
+
+---
+
+### Architecture
+
+![π₀ Architecture](~/assets/images/pi0-arch.png)
+
+The architecture consists of two major components:
+
+1. **Vision–Language Backbone (VLM)**  
+   Inputs include natural language instructions and images.  
+   - Language is tokenized into embeddings.  
+   - Images are processed with a vision transformer (e.g., CLS token captures global image meaning).  
+   - The outputs are projected into a shared token space, producing query–key–value (Q, K, V) representations.  
+
+2. **Action Expert**  
+   This module specializes in robot states and actions.  
+   - Input: the robot’s current state and noisy action samples.  
+   - Backbone: a transformer initialized from Gemma.  
+   - Output: action chunks over a prediction horizon.  
+
+The key design choice is to **freeze the VLM weights** (already pretrained on Internet-scale data) and only fine-tune the **Action Expert**, which adapts the model to physical actions.
+
+---
+
+### Flow Matching
+
+![flow matching](~/assets/images/flow-matching.png)
+
+Action generation in π₀ is modeled with **flow matching**, a variant of diffusion-based learning.  
+
+A noised action vector is created as:
+
+$$
+A_t^\tau = \epsilon \, \tau  + (1 - \tau)\, A_t, \quad \epsilon \sim \mathcal{N}(0, I)
+$$
+
+where:
+- A_t = Action vector  
+- ε = Gaussian noise  
+- τ in [0,1] = noise scale  
+
+( for example, if τ=0, the right-hand side is close to the original action vector.)
+
+The model learns to predict the **denoising vector field**:
+
+$$
+\frac{A_t^\tau}{d \tau} = \epsilon - A_t = u_\theta
+$$
+
+The network’s prediction \(v_\theta(a_\tau, \tau)\) is trained with an MSE loss:
+
+$$
+L = \| u_\theta - v_\theta \|^2
+$$
+
+At inference, since the true \(u\) is unknown, the system integrates the learned vector field:
+
+$$
+A_t^{\tau = \delta} = A_t^\tau + \delta v_\theta
+$$
+
+using **Euler integration** with step size δ. For example, with δ = 0.1, the trajectory is refined in 10 steps. Smaller steps improve accuracy but increase compute.
+
+---
+
+### Attention Mechanism
+
+Within the transformer, **masked attention** ensures that tokens cannot access future information during training:
+
+- Block 1 attends only to itself.  
+- Block 2 can attend to blocks 1–2.  
+- Block 3 can attend to blocks 1–3.  
+
+This is implemented by adding a mask matrix \(M\) with -∞ values in forbidden positions:
+
+$$
+\text{Attention}(Q,K,V) = \text{softmax}\!\left(\frac{QK^T}{\sqrt{d_k}} + M \right)V
+$$
+
+The mask forces irrelevant connections to zero after softmax.
+
+---
+
+### Putting It All Together
+
+- **Inputs**: Instruction tokens, image tokens (from VLM), robot state, and noisy actions.  
+- **Fusion**: All tokens are mapped into the same embedding space.  
+- **Training**: VLM weights are frozen, Action Expert weights are trained via flow matching.  
+- **Outputs**: 50 continuous action vectors forming an action chunk, enabling smooth robotic control.
+
+---
+
+### Summary
+
+π₀ integrates **language, vision, and action** into a unified foundation model for robotics. By combining a pretrained VLM with a trainable Action Expert, and adopting **flow matching** instead of discrete autoregression, it achieves:
+
+- Continuous high-frequency action generation  
+- Strong generalization across tasks and embodiments  
+- A scalable path for instruction-following robots  
+
+This approach highlights how ideas from LLMs and diffusion models can be adapted to the domain of embodied AI.
+
+---
+
+### Youtube
+
+<YouTube id="huh9cMsRdH0" />

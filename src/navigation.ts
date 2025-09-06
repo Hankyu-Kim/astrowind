@@ -82,7 +82,7 @@ export const headerData = {
         },
         {
           text: 'Pi0',
-          href: getPermalink('/'),
+          href: getPermalink('pi0', 'post'),
         },
       ],
     },
