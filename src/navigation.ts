@@ -74,7 +74,7 @@ export const headerData = {
         },
         {
           text: 'Diffusion Policy',
-          href: getPermalink('/'),
+          href: getPermalink('diffusion-policy', 'post'),
         },
         {
           text: 'RT-2',
