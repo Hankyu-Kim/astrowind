@@ -78,7 +78,7 @@ export const headerData = {
         },
         {
           text: 'OpenVLA',
-          href: getPermalink('/'),
+          href: getPermalink('openvla', 'post'),
         },
         {
           text: 'Pi0',
