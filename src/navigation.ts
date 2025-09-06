@@ -77,10 +77,6 @@ export const headerData = {
           href: getPermalink('diffusion-policy', 'post'),
         },
         {
-          text: 'RT-2',
-          href: getPermalink('/'),
-        },
-        {
           text: 'OpenVLA',
           href: getPermalink('/'),
         },
