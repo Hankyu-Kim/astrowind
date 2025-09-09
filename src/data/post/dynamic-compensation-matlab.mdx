@@ -1,16 +1,78 @@
 ---
-publishDate: 2025-08-31T00:00:00Z
+publishDate: 2025-09-09T00:00:00Z
 author: Hankyu Kim
 title: Dynamic Compensation MATLAB Code
-excerpt: Compensation techniques such as PD, Lead, PI, and Lag are essential in control engineering. They shape transient response, steady-state error, and stability margins by modifying the frequency characteristics of systems.
-image: https://images.unsplash.com/photo-1625535069654-cfeb8f829088?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+excerpt: I wrote some tutorial code of pd controller, pi controller, lead compensator, and lag compensator in MATLAB. Feel free to use!!
+image: https://images.unsplash.com/photo-1704770064557-416292d1f4bd?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
 category: Project
 tags:
-  - compensation
+  - dynamic compensation
   - MATLAB
   - tutorial
 metadata:
   canonical: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css
 ---
 
-작성예정
+---
+
+PD Controller Code:
+
+```matlab
+Kp = 2;
+Kd = 0.5;
+
+s = tf('s');
+C = Kp + Kd*s;
+
+figure;
+bode(C);
+grid on;
+title('PD Controller: Bode Plot');
+```
+
+Lead Compensator Code:
+
+```matlab
+K = 1;
+tau = 0.5;
+alpha = 0.1;
+
+s = tf('s');
+C = K * (tau*s + 1) / (alpha*tau*s + 1);
+
+figure;
+bode(C);
+grid on;
+title('Lead Compensator: Bode Plot');
+```
+
+PI Controller Code:
+
+```matlab
+Kp = 2;
+Ki = 1;
+
+s = tf('s');
+C = Kp + Ki/s;
+
+figure;
+bode(C);
+grid on;
+title('PI Controller: Bode Plot');
+```
+
+Lag Compensator Code:
+
+```matlab
+K = 1;
+tau = 0.5;      
+beta = 10;      
+
+s = tf('s');
+C = K * (tau*s + 1) / (beta*tau*s + 1);
+
+figure;
+bode(C);
+grid on;
+title('Lag Compensator: Bode Plot');
+```
