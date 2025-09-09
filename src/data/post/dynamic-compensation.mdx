@@ -19,16 +19,16 @@ Compensation techniques are used to improve system performance by shaping the dy
 
 ### PD Compensation
 
-The transfer function of a proportional–derivative (PD) controller is:
+The transfer function of a PD controller is:
 
 $$
-D_c(s) = T_d s + 1
+D_c(s) = T_D s + 1
 $$
 
 in frequency domain,
 
 $$
-D_c(j\omega) = T_d j\omega + 1
+D_c(j\omega) = T_D j\omega + 1
 $$
 
 where break frequency is:
@@ -37,12 +37,10 @@ $$
 \omega = \frac{1}{T_d}
 $$
 
-The PD controller improves transient response by increasing damping and reducing overshoot. However, because it amplifies high-frequency signals, it is sensitive to noise.
+- **Pros**: It leads the phase, which means making the system respond faster.
+- **Cons**: Sensitive to high-frequency measurement noise.  
 
-- **Effect**: Improves transient response.  
-- **Limitation**: Sensitive to high-frequency measurement noise.  
-
-![Super wide](~/assets/images/PD-controller.jpg)
+![Super wide](~/assets/images/pd_controller.png)
 
 ---
 
@@ -51,21 +49,20 @@ The PD controller improves transient response by increasing damping and reducing
 The transfer function of a lead compensator is:
 
 $$
-D_c(s) = \frac{T s + 1}{\alpha T s + 1}, \quad 0 < \alpha < 1
+D_c(s) = \frac{T_D s + 1}{\alpha T_D s + 1} \quad (\alpha < 1)
 $$
 
 where break frequency is:
 
 $$
-\omega = \frac{1}{T}, \qquad \omega_{p} = \frac{1}{\alpha T}
+\omega = \frac{1}{T_D}, \qquad \omega = \frac{1}{\alpha T_D}
 $$
 
-The lead compensator provides a phase lead effect, improving system stability and increasing the phase margin. This makes the system more robust while enhancing transient performance.
+break frequency 'αT_D' is added.
+- Restrict high-frequency gain.
+- But also restrict 'Phase Lead' effect.  
 
-- **Effect**: Improves stability and phase margin.  
-- **Limitation**: Does not directly eliminate steady-state error.  
-
-![Super wide](~/assets/images/Lead-Compensator.jpg)
+![Super wide](~/assets/images/lead_compensator.png)
 
 ---
 
@@ -74,27 +71,25 @@ The lead compensator provides a phase lead effect, improving system stability an
 The transfer function of a proportional–integral (PI) controller is:
 
 $$
-D_c(s) = \frac{K}{s}(s + \frac{1}{T_i})
+D_c(s) = \frac{K}{s}(s + \frac{1}{T_I})
 $$
 
 in frequency domain,
 
 $$
-D_c(jw) = \frac{k}{jw}(jw + \frac{1}{T_i})
+D_c(jw) = (\frac{k}{jw})(\frac{T_I jw+1}{T_I})
 $$
 
 where break frequency is:
 
 $$
-\omega = \frac{1}{T_i} 
+\omega = \frac{1}{T_I} 
 $$
 
-The PI controller eliminates steady-state error by boosting low-frequency gain to infinity. This ensures accuracy in tracking, but excessive gain may slow down the response and cause oscillations.
+- **Pros**: Infinite gain at the origin, which means eliminating steady-state error by increasing system order with adding pure integrator
+- **Cons**: May slow response on low-frequency area, especially at the origin
 
-- **Effect**: Eliminates steady-state error.  
-- **Limitation**: May slow response and increase oscillations.  
-
-![Super wide](~/assets/images/PI-controller.jpg)
+![Super wide](~/assets/images/pi_controller.png)
 
 ---
 
@@ -103,21 +98,24 @@ The PI controller eliminates steady-state error by boosting low-frequency gain t
 The transfer function of a lag compensator is:
 
 $$
-D_c(s) = \beta \frac{ s + 1}{T s + 1}, \quad \beta > 1
+D_c(s) = \alpha \frac{T_I s + 1}{\alpha T_I s + 1} \quad (\alpha > 1)
 $$
 
 where break frequency is:
 
 $$
-\omega = \frac{1}{\beta T}, \qquad \omega_{p} = \frac{1}{T}
+\omega = \frac{1}{\alpha T_I}, \qquad \omega = \frac{1}{T_I}
 $$
 
-The lag compensator moderately increases low-frequency gain, which reduces steady-state error without significantly changing the transient response. It provides a safer but less aggressive way to improve accuracy compared to PI.
+Unlike the PI controller, this one does not have a pole at the origin.
 
-- **Effect**: Reduces steady-state error.  
-- **Limitation**: Cannot completely eliminate steady-state error.  
+not likely PI controller, this does not have 's' on 0.
+- It has a limited phase lag effect at low frequencies.
+- It also limits the amplification effect at low frequencies.
+- Depending on the design, phase lag can be applied only to specific frequency regions.
+- In frequency ranges where phase lag is not needed, other performance improvements are still possible.
 
-![Super wide](~/assets/images/Lag-Compensator.jpg)
+![Super wide](~/assets/images/lag_compensator.png)
 
 ---
 
