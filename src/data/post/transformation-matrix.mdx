@@ -1,0 +1,102 @@
+---
+publishDate: 2025-09-12T00:00:01Z
+author: Hankyu Kim
+title: Transformation Matrix
+excerpt: The core idea of transformation matrices is that a point represented in one coordinate frame (B) can be expressed in another frame (A) by combining **rotation** and **translation** into a single operator.
+image: https://images.unsplash.com/photo-1585875350095-933e478b7e8e?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: Robotics
+tags:
+  - robotics
+  - rotation matrix
+  - transformation matrix
+metadata:
+  canonical: https://arxiv.org/abs/2304.13705
+---
+
+### Recall) Rotation Matrix
+A rotation matrix is a 3x3 matrix that tells you how one coordinate system is rotated relative to another. It’s made of cosines of angles between the axes of the two coordinate systems and has the neat property that its inverse is just its transpose, making calculations easier. In robotics, rotation matrices help represent and compute how robot parts or tools are oriented in space, which is essential for tasks like moving a robot arm to pick up objects correctly.
+
+By combining rotation matrices with position vectors into a transformation matrix, robots can precisely control both where and how they move in three-dimensional space. This concept forms a mathematical foundation for robot kinematics and manipulation.
+
+---
+
+### Rotation, Translation, and Transformation Matrices
+
+A 3×3 **rotation matrix** $R$ describes the orientation change between frames, and a 3×1 **translation vector** $t$ represents the shift of origins. These are combined into a 4×4 **homogeneous transformation matrix** $T$:
+
+$$
+T = 
+\begin{bmatrix}
+R & t \\
+0 & 1
+\end{bmatrix}
+$$
+
+This allows simultaneous handling of **orientation and position** changes. Points are expressed in **homogeneous coordinates** by appending a 1:
+
+$$
+p_h = 
+\begin{bmatrix} x \\ y \\ z \\ 1 \end{bmatrix}
+$$
+
+The transformed point in another frame is:
+
+$$
+p_A = T_{A}^{B} \, p_B
+$$
+
+---
+
+### Dual Interpretation of Transformation Matrices
+
+1. **Coordinate Mapping:** Expresses the same physical point in a different frame.
+2. **Operator:** Physically moves points from one frame to another.
+
+The mathematics is identical; only the interpretation differs.
+
+---
+
+### Rotations About Axes
+
+Rotations about x, y, z axes can be represented individually:
+
+$$
+R_x(\theta) = 
+\begin{bmatrix}
+1 & 0 & 0\\
+0 & \cos\theta & -\sin\theta\\
+0 & \sin\theta & \cos\theta
+\end{bmatrix}, \quad
+R_y(\theta) = 
+\begin{bmatrix}
+\cos\theta & 0 & \sin\theta\\
+0 & 1 & 0\\
+-\sin\theta & 0 & \cos\theta
+\end{bmatrix}, \quad
+R_z(\theta) = 
+\begin{bmatrix}
+\cos\theta & -\sin\theta & 0\\
+\sin\theta & \cos\theta & 0\\
+0 & 0 & 1
+\end{bmatrix}
+$$
+
+---
+
+### Composite Transformations
+
+Multiple frames can be linked by **multiplying transformation matrices**:
+
+$$
+T_{A}^{C} = T_{A}^{B} \, T_{B}^{C}
+$$
+
+This is crucial in robotics, e.g., computing the end-effector position relative to the base through a **kinematic chain**.
+
+---
+
+### Practical Applications
+
+* Determining a robot end-effector’s position and orientation relative to objects
+* Moving points through multiple coordinate frames
+* Planning and simulating robot trajectories with chains of transformations

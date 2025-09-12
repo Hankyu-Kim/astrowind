@@ -1,0 +1,83 @@
+---
+publishDate: 2025-09-12T00:00:03Z
+author: Hankyu Kim
+title: Analytical Inverse Kinematics
+excerpt: This post demonstrates how to compute the inverse kinematics of a 2-link planar robot arm using the Law of Cosines, providing a step-by-step guide for analytical solutions.
+image: https://images.unsplash.com/photo-1446329360995-b4642a139973?q=80&w=1677&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: Robotics
+tags:
+  - robotics
+  - inverse kinematics
+  - trigonometry
+metadata:
+  canonical: https://arxiv.org/abs/2304.13705
+---
+
+### Introduction
+
+In robotics, the inverse kinematics (IK) problem involves determining the joint parameters needed to place the end-effector of a robot arm at a desired position and orientation. For a planar arm with two links, this problem can be solved analytically using the Law of Cosines, offering a clear method to compute joint angles.
+
+---
+
+### Problem Setup
+
+Consider a planar robot arm with two links. Let the first link have length L1 and the second link have length L2. Denote the base joint angle as theta1 and the elbow joint angle as theta2. The end-effector is located at a target position (x, y). The goal is to compute the values of theta1 and theta2 that position the end-effector at the target.
+
+---
+
+### Step 1: Compute the Elbow Angle
+
+Using the Law of Cosines, the elbow angle can be determined as follows:
+
+$$
+\cos(\theta_2) = \frac{x^2 + y^2 - L_1^2 - L_2^2}{2 L_1 L_2}
+$$
+
+Solving for theta2:
+
+$$
+\theta_2 = \arccos\left(\frac{x^2 + y^2 - L_1^2 - L_2^2}{2 L_1 L_2}\right)
+$$
+
+This provides the elbow angle required to reach the desired end-effector position.
+
+---
+
+### Step 2: Compute the Shoulder Angle
+
+Once theta2 is known, the shoulder angle can be calculated using the geometric relationship:
+
+$$
+\theta_1 = \arctan\left(\frac{y}{x}\right) - \arctan\left(\frac{L_2 \sin(\theta_2)}{L_1 + L_2 \cos(\theta_2)}\right)
+$$
+
+This equation accounts for the relative positions of the links and the end-effector.
+
+---
+
+### Example Calculation
+
+Suppose the first link is 5 units long and the second link is 3 units long. The target end-effector position is (6, 4).
+
+**Step 1: Compute theta2**
+
+$$
+\theta_2 = \arccos\left(\frac{6^2 + 4^2 - 5^2 - 3^2}{2 \cdot 5 \cdot 3}\right) = \arccos(0.6) \approx 53.13^\circ
+$$
+
+**Step 2: Compute theta1**
+
+$$
+\theta_1 = \arctan\left(\frac{4}{6}\right) - \arctan\left(\frac{3 \cdot \sin(53.13^\circ)}{5 + 3 \cdot \cos(53.13^\circ)}\right) \approx 14.22^\circ
+$$
+
+Therefore, the joint angles that position the end-effector at (6, 4) are approximately:
+
+* Shoulder: 14.22 degrees
+* Elbow: 53.13 degrees
+
+---
+
+### Conclusion
+
+Analytical solutions using the Law of Cosines provide an efficient method for solving the inverse kinematics of a planar 2-link arm. This approach is useful when precise control of the end-effector is required. Understanding this technique is a foundational skill in robotics and is essential for designing and controlling robotic manipulators.

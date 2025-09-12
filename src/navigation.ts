@@ -48,23 +48,31 @@ export const headerData = {
         },
       ],
     },
-    // {
-    //   text: 'Robotics',
-    //   links: [
-    //     {
-    //       text: 'DH Parameters',
-    //       href: getPermalink('dh-parameters', 'post'),
-    //     },
-    //     {
-    //       text: 'Transformation Matrix',
-    //       href: getPermalink('transformation-matrix', 'post'),
-    //     },
-    //     {
-    //       text: 'Inverse Kinematics',
-    //       href: getPermalink('inverse-kinematics', 'post'),
-    //     },
-    //   ],
-    // },
+    {
+      text: 'Robotics',
+      links: [
+        {
+          text: 'Transformation Matrix',
+          href: getPermalink('transformation-matrix', 'post'),
+        },
+        {
+          text: 'DH Parameters',
+          href: getPermalink('dh-parameters', 'post'),
+        },
+        {
+          text: 'Analytical Inverse Kinematics',
+          href: getPermalink('analytical-inverse-kinematics', 'post'),
+        },
+        {
+          text: 'Numerical Inverse Kinematics',
+          href: getPermalink('numerical-inverse-kinematics', 'post'),
+        },
+        {
+          text: 'FABRIK',
+          href: getPermalink('fabrik', 'post'),
+        }
+      ],
+    },
     {
       text: 'PhysicalAI',
       links: [

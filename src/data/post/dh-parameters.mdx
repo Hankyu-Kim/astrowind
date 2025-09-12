@@ -1,0 +1,98 @@
+---
+publishDate: 2025-09-12T00:00:02Z
+author: Hankyu Kim
+title: DH Parameters
+excerpt: Denavit-Hartenberg (DH) parameters provide a systematic way to describe robot geometry, linking kinematics, joints, and links for practical robot modeling and control.
+image: https://images.unsplash.com/photo-1696554976856-1aef8df91e62?q=80&w=1198&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: Robotics
+tags:
+  - robotics
+  - dh-parameters
+  - robot-kinematics
+metadata:
+  canonical: https://arxiv.org/abs/2304.13705
+---
+
+**Denavit-Hartenberg (DH) parameters** is a standardized framework for modeling the geometry of robot arms.
+
+---
+
+### Manipulator Components and Kinematics
+
+A **robot manipulator** consists of:
+
+* **Links:** Rigid segments connecting joints
+* **Joints:** Points of motion, either
+
+  * **Revolute (rotational)** or
+  * **Prismatic (linear)**
+
+Each joint contributes a **degree of freedom (DOF)**. For full 3D control of a robot’s end-effector:
+
+* **3 DOF** for position (x, y, z)
+* **3 DOF** for orientation (roll, pitch, yaw)
+
+> Robots with fewer than six DOFs are underactuated; more DOFs provide redundancy but increase complexity.
+
+**Example:** Most industrial arms, like the PUMA 560, have at least 6 DOFs to position and orient the end-effector anywhere in 3D space.
+
+---
+
+### Denavit-Hartenberg (DH) Parameters
+
+DH parameters provide a systematic way to describe the spatial relationship between consecutive links. Each joint is represented by **four parameters**:
+
+1. **Link length ($a$)** – distance along the common normal between joint axes
+2. **Link twist ($\alpha$)** – angle between joint axes along the common normal
+3. **Link offset ($d$)** – distance along the joint axis (variable for prismatic joints)
+4. **Joint angle ($\theta$)** – rotation about the joint axis (variable for revolute joints)
+
+These parameters simplify **forward and inverse kinematics**.
+
+$$
+T_i^{i-1} =
+\begin{bmatrix}
+\cos\theta_i & -\sin\theta_i \cos\alpha_i & \sin\theta_i \sin\alpha_i & a_i \cos\theta_i \\
+\sin\theta_i & \cos\theta_i \cos\alpha_i & -\cos\theta_i \sin\alpha_i & a_i \sin\theta_i \\
+0 & \sin\alpha_i & \cos\alpha_i & d_i \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$$
+
+> This homogeneous transformation matrix maps frame $i$ to $i-1$.
+
+---
+
+### Attaching Coordinate Frames
+
+* **Z-axis:** aligned with the joint axis
+* **X-axis:** along the link between joints
+* **Y-axis:** determined by the right-hand rule
+
+Consistent frame attachment ensures that the DH parameters accurately model the robot geometry.
+
+---
+
+### Examples
+
+**PUMA 560 (6-DOF revolute arm):**
+
+| Joint $i$ | $a_i$ (m) | $\alpha_i$ (rad) | $d_i$ (m) | $\theta_i$ (rad) |
+| --------- | --------- | ---------------- | --------- | ---------------- |
+| 1         | 0         | π/2              | 0.675     | θ1               |
+| 2         | 0.26      | 0                | 0         | θ2               |
+| 3         | 0.68      | 0                | 0         | θ3               |
+| …         | …         | …                | …         | …                |
+
+---
+
+### Summary
+
+DH parameters provide a **compact, systematic way** to model robotic arms, bridging physical construction (links and joints) and mathematical representation (transformation matrices). Mastering DH parameters is essential for:
+
+* Computing **forward kinematics**
+* Solving **inverse kinematics**
+* Programming **robot motion**
+* Simulating **industrial robot behavior**
+
+With this framework, both educational and real-world robotic applications can be accurately analyzed and controlled.

@@ -1,0 +1,72 @@
+---
+publishDate: 2025-09-12T00:00:05Z
+author: Hankyu Kim
+title: FABRIK
+excerpt: FABRIK(A Fast Iterative Solver for the Inverse Kinematics Problem) is a heuristic, iterative inverse kinematics solver that avoids complex matrix operations and singularities, providing smooth motion and fast convergence for robotic chains.
+image: https://images.unsplash.com/photo-1655375184899-f42230051972?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: Robotics
+tags:
+  - robotics
+  - inverse kinematics
+  - iterative solver
+metadata:
+  canonical: https://arxiv.org/abs/2304.13705
+---
+
+### Introduction
+
+Traditional approaches to solving inverse kinematics (IK) often rely on computing the **Jacobian matrix**, which linearly approximates the relationship between joint angles and the motion of the end-effector. In other words, the Jacobian provides a linear mapping of how small changes in joint angles move the robot’s links and end-effector. Popular Jacobian-based methods include:
+
+* Jacobian Transpose
+* Damped Least Squares (DLS)
+* DLS with Singular Value Decomposition (SVD-DLS)
+* Selectively Damped Least Squares (SDLS)
+
+However, these methods are computationally intensive, especially when handling singularities or complex chains. Newton-based solvers, like Powell or BFGS methods, approach IK as a minimization problem, producing smooth motions but requiring heavy computation and careful implementation. Cyclic Coordinate Descent (CCD) is faster but can produce discontinuous motions and struggles with robots with multiple end-effectors.
+
+Heuristic approaches like **Sequential Monte Carlo** and particle filters have also been explored.
+
+---
+
+### The Articulated Body Model
+
+A multibody system consists of rigid links connected by joints, forming a chain starting from a root. If constraints are properly defined, the system’s poses can be represented within a limited feasible set. This chain structure allows iterative approaches to efficiently propagate changes along the links.
+
+---
+
+### Algorithm
+
+**FABRIK** introduces a new heuristic for IK that avoids complex matrix calculations. The core idea is simple: **update joint positions iteratively by moving forward and backward along the chain, minimizing positional error**.
+
+#### Algorithm Overview
+
+1. **Backward Reaching**: Start from the end-effector and move toward the root. Adjust each joint slightly to reduce the distance to the target.
+2. **Forward Reaching**: Move from the root toward the end-effector. Adjust joints along the way to maintain link lengths and further reduce the error.
+
+A single iteration consists of:
+
+* Computing the distance from the root to the target. If reachable (distance < total link length), proceed.
+* Moving the end-effector to the target, then repositioning each preceding joint along the line connecting it to its successor at the correct distance.
+* Once the root is displaced, a forward pass repositions joints from the root to the end-effector while maintaining link constraints.
+
+This process repeats until the end-effector reaches or sufficiently approaches the target. Because FABRIK operates using only **points, lines, and distances**, it avoids heavy matrix computations, converges quickly, and does not suffer from singularities. It also produces smooth, continuous motion.
+
+---
+
+### Optimization
+
+Using **Conformal Geometric Algebra (CGA)**, one can represent spheres, lines, and planes algebraically, enabling predictive updates that accelerate convergence. Another optimization involves projecting unreachable targets along feasible lines toward the chain.
+
+---
+
+### Performance
+
+* FABRIK is generally **faster than Jacobian-based methods**, especially for long chains or when handling multiple end-effectors.
+* It produces **smooth, continuous motion** without discontinuities.
+* Convergence is typically robust, and singularities are naturally avoided.
+
+---
+
+### Limitations
+
+While FABRIK handles most chain types efficiently, its main limitations involve **joint type flexibility**. Ball-and-socket and hinge joints are well-supported, but more complex joint constraints may require additional modifications. Nevertheless, the original authors report no severe limitations in practice.
