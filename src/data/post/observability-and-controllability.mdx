@@ -1,0 +1,197 @@
+---
+publishDate: 2026-01-05T00:00:00Z
+author: Hankyu Kim
+title: Observability and Controllability in Linear Systems
+excerpt: Observability and controllability describe whether a system’s internal states can be inferred from outputs or driven by inputs. These concepts form the foundation of estimation and control in robotics and autonomous driving.
+image: https://images.unsplash.com/photo-1743796055664-3473eedab36e?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: Control
+tags:
+  - control-theory
+  - observability
+  - controllability
+  - kalman-filter
+  - lqr
+metadata:
+  canonical: https://example.com/observability-controllability
+---
+
+### Introduction
+
+In control and robotics, systems are commonly described using a **state-space model**:
+
+$$
+\dot{x} = A x + B u, \qquad y = C x
+$$
+
+Here,
+
+- $x$ represents the internal **state**  
+- $u$ is the **control input**  
+- $y$ is the **measured output**
+
+Two fundamental questions immediately arise:
+
+1. Can we **infer the internal state** from what we measure?
+2. Can we **drive the system** to desired states using control inputs?
+
+These questions are formalized by the concepts of **observability** and **controllability**.
+
+---
+
+### One-Sentence Definitions
+
+- **Observability**  
+  > A system is observable if the output $y(t)$, measured over a finite time interval, uniquely determines the initial state $x(0)$.
+
+- **Controllability**  
+  > A system is controllable if an appropriate choice of input $u(t)$ can drive the state $x(t)$ from any initial state to any desired final state.
+
+Although simple to state, these properties have deep implications for estimation and control.
+
+---
+
+### Observability: Can We See the State?
+
+At first glance, the output equation
+
+$$
+y = Cx
+$$
+
+might suggest that observability depends only on $C$.  
+However, this is **not sufficient**.
+
+Observability is a property of the **pair $(A, C)$**, not just $C$.
+
+#### Key intuition
+
+- The output at a single instant is only a snapshot.
+- Observability depends on how the **state evolves over time** through $A$, and whether hidden components eventually influence the output.
+
+#### Example
+
+Let
+
+$$
+x = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}, \quad
+A =
+\begin{bmatrix}
+0 & 1 \\
+0 & 0
+\end{bmatrix}, \quad
+C =
+\begin{bmatrix}
+1 & 0
+\end{bmatrix}
+$$
+
+- The sensor directly measures only $x_1$.
+- The dynamics cause $x_2$ to influence $x_1$ over time.
+
+Although $x_2$ is not directly measured, it leaves a **trace in the output trajectory**, making the system observable.
+
+If $A$ were zero, $x_2$ would never affect the output, and the system would be unobservable.
+
+---
+
+### Controllability: Can We Drive the State?
+
+Similarly, controllability is not determined by the presence of $B$ alone.
+
+It is a property of the **pair $(A, B)$**.
+
+#### Key intuition
+
+- $B$ determines where control input enters the system.
+- $A$ determines how that influence propagates through the state.
+
+A system is controllable if control inputs can reach **all state directions**, possibly indirectly through the dynamics.
+
+#### Example
+
+Consider
+
+$$
+A =
+\begin{bmatrix}
+0 & 1 \\
+0 & 0
+\end{bmatrix}, \quad
+B =
+\begin{bmatrix}
+0 \\
+1
+\end{bmatrix}
+$$
+
+- The input directly affects $x_2$.
+- Through the dynamics, changes in $x_2$ propagate to $x_1$.
+
+Even though $x_1$ is not directly actuated, it remains controllable via $x_2$.
+
+If a state neither receives input nor is dynamically coupled to an actuated state, it becomes uncontrollable.
+
+---
+
+### Matrix-Based Tests (Practical Criteria)
+
+To conveniently determine these properties, linear systems use rank-based tests.
+
+#### Observability Matrix
+
+$$
+\mathcal{O} =
+\begin{bmatrix}
+C \\
+CA \\
+CA^2 \\
+\vdots \\
+CA^{n-1}
+\end{bmatrix}
+$$
+
+The system is observable if
+
+$$
+\mathrm{rank}(\mathcal{O}) = n
+$$
+
+This matrix collects all ways the state can influence the output over time.
+
+---
+
+#### Controllability Matrix
+
+$$
+\mathcal{C} =
+\begin{bmatrix}
+B & AB & A^2 B & \cdots & A^{n-1} B
+\end{bmatrix}
+$$
+
+The system is controllable if
+
+$$
+\mathrm{rank}(\mathcal{C}) = n
+$$
+
+This matrix represents all state directions reachable by propagating the input through the dynamics.
+
+---
+
+### Why These Concepts Matter
+
+- **Observability** is a prerequisite for state estimation methods such as the **Kalman filter**.
+- **Controllability** is required to design stabilizing controllers such as **LQR**.
+- In practice, weaker notions like **detectability** and **stabilizability** are often sufficient, ensuring that unstable modes are at least observable or controllable.
+
+---
+
+### Summary
+
+- Observability answers: *Can we reconstruct the state from outputs over time?*
+- Controllability answers: *Can we drive the state using inputs?*
+- Both depend on system dynamics, not just sensors or actuators.
+- Rank conditions provide a convenient and rigorous test.
+
+Together, observability and controllability form the **structural backbone** of modern estimation and control theory, especially in robotics and autonomous driving.

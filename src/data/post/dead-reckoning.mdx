@@ -1,0 +1,245 @@
+---
+publishDate: 2026-01-05T00:00:00Z
+author: Hankyu Kim
+title: Forward Euler vs RK4 – Time Integration through Dead Reckoning
+excerpt: Forward Euler and Runge–Kutta are fundamental time-integration methods for continuous dynamics. This post explains their differences intuitively and illustrates why integrator choice matters using dead reckoning when GPS is unavailable.
+image: https://images.unsplash.com/photo-1542577195-d562c6698ff3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: Control
+tags:
+  - numerical-integration
+  - forward-euler
+  - runge-kutta
+  - dead-reckoning
+  - state-estimation
+metadata:
+  canonical: https://hankyukim.com/blog/forward-euler-vs-rk4-dead-reckoning
+---
+
+### Introduction
+
+In robotics and autonomous driving, many systems are naturally described in **continuous time**:
+
+$$
+\dot{x}(t) = f(x(t), u(t))
+$$
+
+However, computers operate in **discrete time**.  
+To predict where the system will be after a small time step $\Delta t$, we must convert continuous dynamics into a discrete update rule:
+
+$$
+x_{k+1} \approx x_k + \int_{t_k}^{t_k + \Delta t} f(x(t), u(t)) \, dt
+$$
+
+This post compares two classic numerical integrators:
+
+- **Forward Euler** (simple and fast)  
+- **Runge–Kutta 4th order (RK4)** (more accurate and stable)
+
+and explains why the choice matters using a concrete example: **dead reckoning** when GPS is unavailable (e.g., inside a tunnel).
+
+---
+
+### Time Integration as State Propagation
+
+A continuous-time model tells us the **rate of change**, not the next state.
+
+For example:
+
+$$
+\dot{p}(t) = v(t)
+$$
+
+means “position changes according to velocity,”  
+but it does not directly give $p(t + \Delta t)$.
+
+Numerical integration answers the question:
+
+> Given the current state and its rate of change, where will the system be after a short time?
+
+In estimation and control, this step is often called **state propagation**.
+
+---
+
+### Forward Euler
+
+Forward Euler is the simplest possible integrator.  
+It assumes the derivative at the beginning of the interval stays constant over the entire step.
+
+$$
+x_{k+1} = x_k + f(x_k, u_k)\, \Delta t
+$$
+
+#### Intuition
+
+- Evaluate the slope **once** at the start  
+- Assume it remains constant over the step  
+- Move forward in a straight line  
+
+#### Characteristics
+
+- Very simple and fast  
+- Low accuracy  
+- Errors accumulate quickly  
+- Highly sensitive to step size $\Delta t$  
+
+A useful mental model:
+
+> Forward Euler follows the tangent line and hopes the curve does not bend too much.
+
+---
+
+### Runge–Kutta (RK4)
+
+RK4 improves accuracy by sampling the slope multiple times within a single time step.
+
+$$
+k_1 = f(x_k, u_k)
+$$
+
+$$
+k_2 = f\!\left(x_k + \frac{\Delta t}{2} k_1,\, u_k\right)
+$$
+
+$$
+k_3 = f\!\left(x_k + \frac{\Delta t}{2} k_2,\, u_k\right)
+$$
+
+$$
+k_4 = f\!\left(x_k + \Delta t\, k_3,\, u_k\right)
+$$
+
+$$
+x_{k+1} = x_k + \frac{\Delta t}{6}\left(k_1 + 2k_2 + 2k_3 + k_4\right)
+$$
+
+#### Intuition
+
+- Sample the slope at the start, middle, and end  
+- Capture how the trajectory curves within the step  
+- Advance using an averaged direction  
+
+A good mental model:
+
+> RK4 tries to follow the curve itself, not just the initial tangent.
+
+#### Characteristics
+
+- Much higher accuracy  
+- More stable for nonlinear dynamics  
+- Higher computational cost (four evaluations per step)
+
+---
+
+### Dead Reckoning: A Concrete Example
+
+**Dead reckoning** estimates position without external correction, using only onboard sensors.
+
+Typical setup:
+
+- IMU measures acceleration (noisy, biased)  
+- Acceleration is integrated to velocity  
+- Velocity is integrated to position  
+
+This is fundamentally a **time-integration problem**.
+
+---
+
+### Continuous-Time Model (Simplified 1D)
+
+$$
+\dot{p}(t) = v(t)
+$$
+
+$$
+\dot{v}(t) = a(t)
+$$
+
+where:
+
+- $a(t)$: acceleration from IMU  
+- $v(t)$: velocity  
+- $p(t)$: position  
+
+---
+
+### Dead Reckoning with Forward Euler
+
+Euler discretization gives:
+
+$$
+v_{k+1} = v_k + a_k\, \Delta t
+$$
+
+$$
+p_{k+1} = p_k + v_k\, \Delta t
+$$
+
+#### What happens in practice?
+
+- Acceleration noise or bias is integrated once → **velocity drift**  
+- Velocity drift is integrated again → **position drift**  
+- Errors grow rapidly over time  
+
+This explains why Euler-based dead reckoning diverges quickly in long tunnels.
+
+---
+
+### Dead Reckoning with RK4
+
+With RK4:
+
+- Acceleration is sampled multiple times per step  
+- Motion curvature (braking, turning) is better captured  
+- Drift accumulates more slowly  
+
+However, RK4 does **not** eliminate drift:
+
+- Bias remains bias  
+- Noise remains noise  
+- Integration still amplifies both  
+
+External correction (GPS, vision, map matching) is eventually required.
+
+---
+
+### Key Insight
+
+Forward Euler and RK4 do not change the system model.
+
+They change **how faithfully we follow the system’s evolution in time**.
+
+Dead reckoning failure is not only a sensor problem — it is also an **integration problem**.
+
+---
+
+### When the Choice Matters
+
+| Scenario | Forward Euler | RK4 |
+|---|---|---|
+| Short horizon, small $\Delta t$ | Often OK | Excellent |
+| Long dead reckoning | Poor | Better (still drifts) |
+| High-curvature motion | Poor | Strong |
+| Real-time constraints | Very fast | Slower |
+| Simulation accuracy | Low | High |
+
+In practice:
+
+- **Euler** is common for quick prototyping  
+- **RK4** is preferred for accurate simulation and estimation  
+
+---
+
+### Summary
+
+- Time integration converts continuous dynamics into discrete states  
+- Forward Euler is simple but error-prone  
+- RK4 is more accurate and stable  
+- Dead reckoning highlights how integration choice affects drift  
+- Numerical integration quality directly impacts reliability in physical AI systems  
+
+Understanding time integration bridges:
+
+- differential equations  
+- state propagation  
+- estimation drift  
+- real-world autonomy

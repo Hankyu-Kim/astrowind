@@ -1,0 +1,172 @@
+---
+publishDate: 2026-01-05T00:00:00Z
+author: Hankyu Kim
+title: One-shot vs Iteration-based Computation in Control
+excerpt: This post contrasts one-shot (memoryless) control computation with iteration-based, optimization-driven control such as MPC, clarifying their roles, trade-offs, and practical implications in robotics.
+image: https://images.unsplash.com/photo-1519493442754-8eb0a6cec050?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: Control
+tags:
+  - control
+  - mpc
+  - optimization
+  - robotics
+metadata:
+  canonical: https://hankyukim.com/posts/one-shot-vs-iteration-based-control
+---
+
+### Introduction
+
+In control systems, how a controller computes its output is just as important as what it computes.
+Broadly, control computation can be divided into two paradigms:
+
+- One-shot computation: the control input is computed in a single, direct step.
+- Iteration-based computation: the control input is obtained through repeated numerical optimization.
+
+This distinction appears frequently in robotics, autonomous driving, and optimal control, especially when comparing classical controllers such as LQR or PID with optimization-based methods like Model Predictive Control (MPC).
+
+---
+
+### One-shot Computation (Memoryless Control)
+
+One-shot computation refers to control laws that produce an output immediately from the current state or error, without internal iterations or solver loops.
+
+The controller can be expressed as:
+
+$$
+u = f(x)
+$$
+
+where the mapping $f(\cdot)$ is fixed and explicitly defined.
+
+#### Key Characteristics
+
+- No iteration at runtime
+- No internal solver or optimization loop
+- Often admits a closed-form expression
+- Highly predictable computational cost
+
+#### Typical Examples
+
+- Linear Quadratic Regulator (LQR):
+
+$$
+u = -Kx
+$$
+
+- Proportional or PID control
+- Feedforward or inverse-dynamics control
+- Explicit MPC solved offline
+
+#### Strengths and Limitations
+
+- Fast and reliable for real-time systems
+- Easy to analyze for stability
+- Limited ability to handle constraints
+- Less flexible for highly nonlinear or time-varying tasks
+
+One-shot controllers can be interpreted as static state-feedback laws: the controller does not optimize online, it simply evaluates.
+
+---
+
+### Iteration-based Computation (Optimization-driven Control)
+
+Iteration-based computation determines the control input by solving an optimization problem online.
+
+The control action is obtained by repeatedly refining candidate inputs until a locally optimal solution is found:
+
+$$
+u = \arg\min_u \quad J(x, u)
+$$
+
+This process involves multiple numerical iterations per control step.
+
+#### Key Characteristics
+
+- Numerical optimization loop
+- Internal solver state such as warm start
+- Trade-off between solution quality and computation time
+- Often implemented in a receding-horizon manner
+
+---
+
+### Example: Model Predictive Control (MPC)
+
+Model Predictive Control (MPC) is the canonical example of iteration-based control.
+
+At each control timestep:
+
+1. Predict future system evolution using a model.
+2. Solve a finite-horizon optimization problem:
+
+$$
+\min_{u_0,...,u_{N-1}} \sum_{k=0}^{N-1} \ell(x_k, u_k)
+$$
+
+subject to the system dynamics and constraints:
+
+$$
+x_{k+1} = f(x_k, u_k)
+$$
+
+3. Apply only the first control input.
+4. Repeat the procedure at the next timestep.
+
+#### Why MPC Is Iteration-based
+
+- The optimization problem is solved numerically
+- Each solve requires multiple iterations such as SQP or Gauss-Newton
+- Computation time depends on horizon length, constraints, and solver choice
+
+#### Strengths and Limitations
+
+- Naturally handles constraints
+- Suitable for nonlinear and multivariable systems
+- Computationally expensive
+- Requires careful real-time tuning
+
+---
+
+### What Iteration Means and What It Does Not
+
+Iteration-based computation does not refer to time integration methods such as Euler or RK4.
+
+Instead:
+
+- Iteration refers to repeated improvement of the control input
+- The goal is optimality, not numerical accuracy of state propagation
+
+A controller may be one-shot at the control level while still relying on iterative numerical integration internally.
+
+---
+
+### Side-by-side Comparison
+
+| Aspect | One-shot Computation | Iteration-based Computation |
+| --- | --- | --- |
+| Runtime iterations | None | Multiple |
+| Control law | Explicit | Implicit optimization |
+| Constraint handling | Weak | Strong |
+| Computational cost | Fixed and low | Variable and higher |
+| Typical examples | PID | MPC |
+
+---
+
+### Putting It All Together
+
+One-shot computation prioritizes speed, simplicity, and reliability.
+Iteration-based computation prioritizes flexibility, optimality, and constraint handling.
+
+Modern robotic systems often combine both approaches:
+iteration-based planners or MPC at lower frequency, and one-shot controllers in the inner high-frequency control loop.
+
+---
+
+### Summary
+
+One-shot and iteration-based computation represent two fundamentally different philosophies in control design.
+
+One-shot controllers compute actions directly from the current state.
+Iteration-based controllers compute actions by solving an optimization problem online.
+
+Neither approach is universally superior.
+In practice, effective robotic systems often leverage both paradigms at different layers of the control stack.

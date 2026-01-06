@@ -46,6 +46,18 @@ export const headerData = {
           text: 'Dynamic Compensation',
           href: getPermalink('dynamic-compensation', 'post'),
         },
+        {
+          text: 'Linear Systems',
+          href: getPermalink('observability-and-controllability', 'post'),
+        },
+        {
+          text: 'Dead Reckoning',
+          href: getPermalink('dead-reckoning', 'post'),
+        },
+        {
+          text: 'MPC',
+          href: getPermalink('mpc', 'post'),
+        },
       ],
     },
     {
