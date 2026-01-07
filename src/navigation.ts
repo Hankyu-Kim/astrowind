@@ -82,12 +82,7 @@ export const headerData = {
         {
           text: 'FABRIK',
           href: getPermalink('fabrik', 'post'),
-        }
-      ],
-    },
-    {
-      text: 'PhysicalAI',
-      links: [
+        },
         {
           text: 'ACT',
           href: getPermalink('act', 'post'),
