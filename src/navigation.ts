@@ -61,6 +61,35 @@ export const headerData = {
       ],
     },
     {
+      text: 'Filter',
+      links: [
+        {
+          text: 'Average Filter',
+          href: getPermalink('average-filter', 'post'),
+        },
+        {
+          text: 'Moving Average Filter',
+          href: getPermalink('moving-average-filter', 'post'),
+        },
+        {
+          text: 'Low Pass Filter',
+          href: getPermalink('low-pass-filter', 'post'),
+        },
+        {
+          text: 'Kalman Filter (Part 1)',
+          href: getPermalink('kalman-filter1', 'post'),
+        },
+        {
+          text: 'Kalman Filter (Part 2)',
+          href: getPermalink('kalman-filter2', 'post'),
+        },
+        {
+          text: 'Extended Kalman Filter',
+          href: getPermalink('extended-kalman-filter', 'post'),
+        },
+      ]
+    },
+    {
       text: 'Robotics',
       links: [
         {

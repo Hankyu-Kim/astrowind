@@ -1,0 +1,150 @@
+---
+publishDate: 2026-01-06T00:00:00Z
+author: Hankyu Kim
+title: Average Filter
+excerpt: The average filter is the simplest form of recursive estimation. Despite its simplicity, it provides strong noise reduction and forms the foundation of more advanced filters such as the Kalman filter.
+image: https://images.unsplash.com/photo-1613905780946-26b73b6f6e11?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: Filter
+tags:
+  - signal-processing
+  - average-filter
+  - recursive-filter
+  - estimation
+  - kalman-filter
+metadata:
+  canonical: https://example.com/average-filter
+---
+
+### Introduction
+
+This post introduces the **Average Filter**, one of the simplest yet most powerful tools in signal processing and estimation.
+
+Although the idea of taking an average is trivial, expressing it as a **recursive filter** reveals a structure that appears throughout modern estimation theory, including the Kalman filter.
+
+---
+
+### One-Sentence Definition
+
+- **Average Filter**  
+  > An average filter updates an estimate by combining the previous average with the current measurement.
+
+---
+
+### Basic Definition of an Average
+
+Given $N$ samples, the arithmetic mean is defined as
+
+$$
+\text{Average} = \frac{1}{N} \sum_{i=1}^{N} x_i
+$$
+
+For example,
+
+$$
+[1,2,3,4,5] \;\rightarrow\; \frac{1+2+3+4+5}{5} = 3
+$$
+
+This is the most familiar form of averaging.
+
+---
+
+### Recursive Interpretation
+
+Assume that the average of the first $k-1$ samples is already known:
+
+$$
+\bar{x}_{k-1} = \frac{1}{k-1} \sum_{i=1}^{k-1} x_i
+$$
+
+When a new sample $x_k$ arrives, the updated average can be written as
+
+$$
+\bar{x}_k
+= \frac{k-1}{k}\,\bar{x}_{k-1} + \frac{1}{k}\,x_k
+$$
+
+This can be rewritten in a generic form:
+
+$$
+\bar{x}_k = (1-a)\,\bar{x}_{k-1} + a\,x_k
+$$
+
+where
+
+$$
+a = \frac{1}{k}
+$$
+
+---
+
+### Key Insight
+
+- The average is updated incrementally
+- Past information is not discarded
+- The structure is inherently **recursive**
+
+This recursive form is far more useful in real-time systems than recomputing the full sum at every step.
+
+---
+
+### Example: Noisy Voltage Measurement
+
+Consider a car battery with a true voltage of approximately **14V**.
+
+Due to sensor noise, the measured voltage fluctuates between **10V and 18V**.
+
+Assume:
+- Sampling interval: 1 second
+- Total duration: 100 seconds
+
+Applying an average filter:
+
+- Early estimates fluctuate significantly
+- As more samples accumulate, the estimate stabilizes
+- The filtered voltage converges toward **14V**
+
+Despite its simplicity, the average filter effectively suppresses noise.
+
+![Super wide](~/assets/images/average-filter.png)
+
+---
+
+### General Average Filter Equation
+
+The average filter can be expressed as
+
+$$
+\bar{x}_k = (1-a)\,\bar{x}_{k-1} + a\,x_k
+$$
+
+where:
+- $\bar{x}_k$ is the current estimate
+- $\bar{x}_{k-1}$ is the previous estimate
+- $x_k$ is the current measurement
+- $a$ is the weighting factor
+
+This structure directly appears in:
+- Exponential moving averages
+- Low-pass filters
+- Kalman filters
+
+---
+
+### Why This Matters
+
+- The average filter is the simplest recursive estimator
+- All practical filters rely on recursion
+- Understanding this structure is essential before studying Kalman filters
+
+If the recursive nature of the average filter is not clear, advanced estimation methods will remain opaque.
+
+---
+
+### Summary
+
+- The average filter is simple but fundamental
+- It combines past estimates with new measurements
+- It provides effective noise reduction
+- It forms the conceptual foundation of modern estimation theory
+
+**Simple mathematics, powerful implications.**

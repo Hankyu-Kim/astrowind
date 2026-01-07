@@ -1,0 +1,215 @@
+---
+publishDate: 2026-01-06T00:00:00Z
+author: Hankyu Kim
+title: Kalman Filter (Part 2)
+excerpt: This post explains the physical meaning of the error covariance P and the Kalman gain K, showing how the Kalman filter adaptively balances model prediction and sensor measurements.
+image: https://images.unsplash.com/photo-1654009603731-20b6d7536002?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: Filter
+tags:
+  - kalman-filter
+  - estimation
+  - covariance
+  - kalman-gain
+  - control-theory
+metadata:
+  canonical: https://example.com/kalman-filter-p-k
+---
+
+### Introduction
+
+In the previous post, we covered the overall structure of the Kalman filter and clarified the roles of  
+$A$, $H$, $Q$, and $R$.
+
+With those variables understood, only two components remain:
+
+- **Error covariance $P$**
+- **Kalman gain $K$**
+
+Once these are clear, the conceptual understanding of the Kalman filter is complete.
+
+---
+
+### What Is P?
+
+$P$ is the **error covariance**.
+
+Despite its intimidating name, its meaning can be summarized in a single sentence:
+
+> **$P$ represents the variance of the estimation error assuming a Gaussian distribution.**
+
+In other words, $P$ quantifies how uncertain the current estimate is.
+
+---
+
+### Why Covariance Appears
+
+In the previous post, we assumed:
+
+- Process noise $Q$ follows a Gaussian distribution
+- Measurement noise $R$ follows a Gaussian distribution
+
+If both the system and sensors contain Gaussian noise,  
+then the estimation error must also follow a Gaussian distribution.
+
+Computing $P$ is simply the process of tracking the **spread** of that error distribution.
+
+---
+
+### Covariance Update
+
+The covariance update equation is:
+
+$$
+P_k = P_k^- - K H P_k^-
+$$
+
+Here:
+- $P_k^-$ is the predicted covariance
+- $K$ is the Kalman gain
+- $H$ is the measurement matrix
+
+Loosely speaking, this can be interpreted as:
+
+$$
+P_{\text{new}} = (1 - \text{constant}) \times P_{\text{predicted}}
+$$
+
+This is nothing more than arithmetic.
+
+---
+
+### What Is K?
+
+$K$ is the **Kalman Gain**, the core of the Kalman filter.
+
+Once $A$, $H$, $Q$, $R$, and $P$ are known, the Kalman gain is computed as:
+
+$$
+K = P H (H P H + R)^{-1}
+$$
+
+Every term in this equation is already defined.
+
+There is no optimization loop here — just matrix operations.
+
+---
+
+### Why Kalman Gain Matters
+
+The Kalman gain determines how much we trust:
+
+- The **model prediction**
+- The **sensor measurement**
+
+This trade-off happens automatically through $K$.
+
+---
+
+### Simplified View of K
+
+If we treat the denominator as a constant, the equation becomes:
+
+$$
+K = \frac{P H}{H P H + R}
+$$
+
+Now the physical meaning becomes clear.
+
+---
+
+### Connection to the State Update
+
+Recall the state update equation:
+
+$$
+\hat{x}_k = \hat{x}_k^- + K (z_k - H \hat{x}_k^-)
+$$
+
+This can be rearranged as:
+
+$$
+\hat{x}_k = (1 - K)\hat{x}_k^- + K z_k
+$$
+
+This equation should look very familiar.
+
+It is mathematically identical to a **Low Pass Filter**.
+
+---
+
+### Interpretation of R (Measurement Noise)
+
+$R$ represents sensor noise.
+
+From the Kalman gain equation:
+
+- If $R$ increases → $K$ decreases
+
+This means:
+
+> When sensor noise is large, the filter trusts the sensor less.
+
+Summary:
+
+$$
+R \uparrow \;\Rightarrow\; K \downarrow \;\Rightarrow\; \text{less weight on measurements}
+$$
+
+This matches physical intuition perfectly.
+
+---
+
+### Interpretation of Q (Process Noise)
+
+$Q$ represents system uncertainty.
+
+From the covariance prediction:
+
+$$
+P_k^- = A P_{k-1} A + Q
+$$
+
+- If $Q$ increases → $P$ increases
+- If $P$ increases → $K$ increases
+
+Summary:
+
+$$
+Q \uparrow \;\Rightarrow\; K \uparrow \;\Rightarrow\; \text{more weight on measurements}
+$$
+
+When the model is unreliable, the filter relies more on sensor data.
+
+---
+
+### Why This Is Intuitive
+
+- High sensor noise → trust the model
+- High system uncertainty → trust the sensor
+
+The Kalman filter encodes this logic directly into its equations.
+
+What appears complex is simply common sense written in matrix form.
+
+---
+
+### Summary
+
+Across two posts, we have covered the Kalman filter completely:
+
+**Part 1**
+- Overall flow of the Kalman filter
+- Meaning of $A$, $H$, $Q$, and $R$
+
+**Part 2**
+- Meaning of error covariance $P$
+- Physical interpretation of Kalman gain $K$
+- Direct connection to low pass filtering
+
+If you understand these points, you understand **nearly 100%** of the Kalman filter conceptually.
+
+The next step is implementation.
+
+In the next post, we will move directly to **coding the Kalman filter**.
+
+---

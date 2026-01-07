@@ -1,0 +1,173 @@
+---
+publishDate: 2026-01-06T00:00:00Z
+author: Hankyu Kim
+title: Moving Average Filter
+excerpt: The moving average filter reduces noise while preserving the dynamic behavior of time-varying signals by averaging only a recent window of measurements.
+image: https://images.unsplash.com/photo-1700838712765-fad192553296?q=80&w=1180&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: Filter
+tags:
+  - signal-processing
+  - moving-average
+  - filtering
+  - estimation
+  - time-series
+metadata:
+  canonical: https://example.com/moving-average-filter
+---
+
+### Introduction
+
+This post introduces the **Moving Average Filter**, an extension of the basic average filter designed to handle **time-varying signals**.
+
+As shown in the previous post, taking an average is highly effective at removing noise.  
+However, when the underlying signal changes over time, a simple average filter becomes inadequate.
+
+---
+
+### Limitation of the Average Filter
+
+The standard average filter computes the mean of **all past measurements**.
+
+This works well when the true value is constant, but fails when the signal evolves.
+
+Consider a signal that increases linearly:
+
+$$
+x_k = 1, 2, 3, 4, 5, \dots
+$$
+
+Applying a cumulative average produces:
+
+$$
+1 \rightarrow 1.5 \rightarrow 2 \rightarrow 2.5 \rightarrow 3
+$$
+
+Instead of following the signal, the filter outputs a **smoothed but lagging estimate**.
+
+As the sequence grows longer, this accumulated lag becomes more severe.
+
+---
+
+### Why Moving Average?
+
+Most real-world signals are **dynamic**.
+
+We want a filter that:
+- Suppresses noise
+- Responds to recent changes
+- Does not accumulate long-term bias
+
+This motivation leads to the **Moving Average Filter**.
+
+---
+
+### Core Idea
+
+Instead of averaging *all* past data, the moving average computes the mean over a **fixed window of recent samples**.
+
+At time $k$, only the most recent $n$ samples are used:
+
+$$
+\bar{x}_k = \frac{1}{n} \sum_{i=k-n+1}^{k} x_i
+$$
+
+Old data is discarded, allowing the estimate to track changes in the signal.
+
+---
+
+### Simple Example
+
+Assume the input sequence:
+
+$$
+[1, 2, 3, 4, 5]
+$$
+
+Using a window size of $n=2$:
+
+$$
+1 \rightarrow 1.5 \rightarrow 2.5 \rightarrow 3.5 \rightarrow 4.5
+$$
+
+Comparison:
+
+| Measured | 1 | 2 | 3 | 4 | 5 |
+|---------|---|---|---|---|---|
+| Average Filter | 1 | 1.5 | 2 | 2.5 | 3 |
+| Moving Average | 1 | 1.5 | 2.5 | 3.5 | 4.5 |
+
+Even in this simple case, the moving average tracks the signal far more accurately.
+
+---
+
+### Dynamic Signal Example
+
+Consider a signal defined as
+
+$$
+y = x + 1 + \text{noise}
+$$
+
+![Super wide](~/assets/images/moving-average-filter1.png)
+
+- The average filter increasingly lags behind the true signal
+
+![Super wide](~/assets/images/moving-average-filter2.png)
+
+- The moving average filter continues to track the trend
+
+Using a window of the most recent **5 samples**, the moving average maintains stability while responding to changes.
+
+The performance difference becomes more pronounced as:
+- The signal duration increases
+- The signal variation becomes larger
+
+---
+
+### Efficient Recursive Update
+
+The moving average can be updated efficiently without recomputing the full sum.
+
+Let:
+- $\bar{x}_{k-1}$ be the previous moving average
+- $x_k$ be the new sample
+- $x_{k-n}$ be the oldest sample leaving the window
+
+Then:
+
+$$
+\bar{x}_k = \bar{x}_{k-1} + \frac{x_k - x_{k-n}}{n}
+$$
+
+This update rule highlights the **sliding window** nature of the filter.
+
+---
+
+### Key Insight
+
+- Only the newest and oldest samples affect the update
+- Middle samples remain unchanged
+- The filter adapts quickly to signal changes
+
+This structure provides a balance between **noise reduction** and **responsiveness**.
+
+---
+
+### Why This Matters
+
+- Average filters fail for time-varying signals
+- Moving average filters preserve dynamics
+- Window size controls the noise–responsiveness tradeoff
+
+The moving average filter is a practical stepping stone toward more advanced adaptive filters.
+
+---
+
+### Summary
+
+- Moving average filters use a fixed window of recent data
+- They remove noise without excessive lag
+- They outperform cumulative averages on dynamic signals
+- They are widely used in signal processing and control
+
+**Simple modification, significantly better behavior.**

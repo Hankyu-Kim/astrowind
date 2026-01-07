@@ -1,0 +1,213 @@
+---
+publishDate: 2026-01-06T00:00:00Z
+author: Hankyu Kim
+title: Extended Kalman Filter (EKF)
+excerpt: The Extended Kalman Filter applies the Kalman filter to nonlinear systems by locally linearizing system and measurement models using Jacobians.
+image: https://images.unsplash.com/photo-1553675559-5046b59a5ca5?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: Filter
+tags:
+  - extended-kalman-filter
+  - nonlinear-systems
+  - estimation
+  - jacobian
+  - control-theory
+metadata:
+  canonical: https://example.com/extended-kalman-filter
+---
+
+### Introduction
+
+So far, we have spent considerable time understanding the **linear Kalman filter**, its intuition, and practical examples.
+
+However, most real-world systems are **nonlinear**.
+
+This is where the standard Kalman filter reaches its limit.
+
+To overcome this, engineers developed a method to apply Kalman filtering to nonlinear systems.  
+The earliest and most widely used solution is the **Extended Kalman Filter (EKF)**, first applied in aerospace systems and famously used by **NASA**.
+
+---
+
+### Core Idea of EKF
+
+The idea behind EKF is extremely simple:
+
+> **If the system is nonlinear, linearize it at every time step and apply the Kalman filter.**
+
+That is the entire concept.
+
+---
+
+### From Linear KF to EKF
+
+Recall the linear Kalman filter state prediction:
+
+$$
+x_k = A x_{k-1}
+$$
+
+In EKF, this becomes:
+
+$$
+x_k = f(x_{k-1})
+$$
+
+Similarly, the measurement model changes from:
+
+$$
+z_k = H x_k
+$$
+
+to:
+
+$$
+z_k = h(x_k)
+$$
+
+The only difference is that **constant matrices $A$ and $H$ are replaced by nonlinear functions $f$ and $h$**.
+
+---
+
+### Why This Works
+
+Although the system is nonlinear, the Kalman filter itself is still **linear**.
+
+EKF resolves this mismatch by:
+- Approximating nonlinear functions
+- Using a local linear model at each time step
+
+This approximation is performed using **first-order Taylor expansion**.
+
+---
+
+### Linearization via Jacobian
+
+At each time step, the nonlinear functions are linearized around the current estimate.
+
+![Super wide](~/assets/images/extended-kalman-filter.png)
+
+The Jacobian matrices are defined as:
+
+$$
+F_k = \frac{\partial f}{\partial x} \Bigg|_{\hat{x}_{k-1}}
+$$
+
+$$
+H_k = \frac{\partial h}{\partial x} \Bigg|_{\hat{x}_{k}^{-}}
+$$
+
+These Jacobians replace $A$ and $H$ in the Kalman filter equations.
+
+---
+
+### EKF Algorithm Structure
+
+Once linearized, the EKF algorithm is **identical** to the linear Kalman filter:
+
+1. **Prediction**
+   - Predict state using $f(x)$
+   - Predict covariance using Jacobian $F_k$
+
+2. **Update**
+   - Compute Kalman gain using $H_k$
+   - Update state estimate
+   - Update covariance
+
+Only the source of $A$ and $H$ changes.
+
+---
+
+### What Is a Jacobian?
+
+The Jacobian is a matrix of **partial derivatives**.
+
+Suppose:
+
+$$
+y = f(x_1, x_2, x_3) = x_1 + 2x_2 + 3x_3
+$$
+
+Then:
+
+$$
+\frac{\partial y}{\partial x_1} = 1,\quad
+\frac{\partial y}{\partial x_2} = 2,\quad
+\frac{\partial y}{\partial x_3} = 3
+$$
+
+This vector forms one row of the Jacobian.
+
+---
+
+### Why Partial Derivatives Are Necessary
+
+In Kalman filtering, the state is typically a vector:
+
+$$
+x = \begin{bmatrix} \text{position} \\ \text{velocity} \\ \vdots \end{bmatrix}
+$$
+
+Each component affects the system differently.
+
+Therefore, we must compute derivatives **with respect to each state variable separately**.
+
+This is why Jacobians are essential in EKF.
+
+---
+
+### Intuitive Interpretation
+
+- Nonlinear system → cannot apply Kalman filter directly
+- Linearize system locally → apply Kalman filter
+- Repeat at every time step
+
+This produces a filter that works well **as long as nonlinearities are not too severe**.
+
+---
+
+### Comparison Summary
+
+**Linear Kalman Filter**
+- System is already linear
+- Directly apply Kalman filter
+
+**Extended Kalman Filter**
+- System is nonlinear
+- Linearize using Jacobians
+- Apply Kalman filter to the linear approximation
+
+---
+
+### Why EKF Looks Difficult
+
+Most textbooks and papers present EKF using dense mathematical notation.
+
+While the formulas are correct, they obscure the simplicity of the idea.
+
+In reality:
+
+> **EKF = Kalman Filter + Jacobian-based linearization**
+
+Nothing more.
+
+---
+
+### Practical Notes
+
+- Jacobians can be derived analytically or computed numerically
+- Many tools (MATLAB, Python libraries) handle Jacobian computation automatically
+- EKF performance depends heavily on the quality of the linearization
+
+---
+
+### Summary
+
+- Real-world systems are mostly nonlinear
+- EKF extends Kalman filtering to nonlinear systems
+- Nonlinear functions are linearized at every step
+- Jacobians replace constant matrices
+- The underlying Kalman filter structure remains unchanged
+
+If you understand the Kalman filter, **EKF is a natural and straightforward extension**.
+
+---

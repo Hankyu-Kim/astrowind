@@ -1,0 +1,275 @@
+---
+publishDate: 2026-01-06T00:00:00Z
+author: Hankyu Kim
+title: Kalman Filter (Part 1)
+excerpt: The Kalman filter is an optimal recursive estimator for linear systems, combining system models and noisy measurements through simple matrix operations.
+image: https://images.unsplash.com/photo-1717538855595-c2025a0755bb?q=80&w=1631&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+category: Filter
+tags:
+  - kalman-filter
+  - estimation
+  - control-theory
+  - state-space
+  - signal-processing
+metadata:
+  canonical: https://example.com/kalman-filter
+---
+
+### Introduction
+
+This post introduces the **Kalman Filter**, one of the most influential tools in control and estimation theory, originally developed by **Rudolf Kalman**.
+
+For **linear systems**, the Kalman filter is mathematically proven to be an **optimal estimator**.  
+In practice, it is so powerful that for linear systems, using the Kalman filter alone is often sufficient.
+
+Despite its reputation, the Kalman filter is **not conceptually difficult**.  
+Most learners give up not because of the idea, but because of the intimidating equations.
+
+---
+
+### A Common Misconception
+
+When people first see the Kalman filter equations, the typical reaction is:
+
+> “This looks impossible to understand.”
+
+In reality:
+- The equations are long, but
+- Each symbol has a clear physical meaning
+- The computations are simple matrix arithmetic
+
+Understanding the *roles* of the variables matters far more than memorizing derivations.
+
+---
+
+### What You Do NOT Need to Do
+
+You do **not** need to derive the Kalman filter from first principles every time.
+
+Just as we do not re-derive integrals from Riemann sums whenever we integrate,  
+we use the Kalman filter by understanding:
+- What each term represents
+- How it fits into our system
+
+The focus should be on **how to apply it**, not on proving it again.
+
+---
+
+### Kalman Filter Structure
+
+If a variable has a hat symbol, it represents an **estimate**.
+
+- $k$ : current time step  
+- $k-1$ : previous time step  
+
+The Kalman filter consists of five simple steps:
+
+---
+
+### Step 1: Initialization
+
+The estimate and error covariance from the previous step become the initial values for the next step.
+
+This highlights a key property:
+
+> **The Kalman filter is recursive.**
+
+---
+
+### Step 2: Prediction of Estimate and Covariance
+
+The prediction equations may look complex, but in practice:
+
+- Only the covariance $P$ is being updated
+- $A$ and $Q$ are already known system parameters
+
+This step is simply:
+
+- Multiply by $A$
+- Add $Q$
+
+Nothing more than arithmetic.
+
+---
+
+### Step 3: Kalman Gain Computation
+
+The Kalman gain determines how much we trust:
+- The prediction
+- The measurement
+
+Again:
+- $H$ and $R$ are fixed
+- Only $P$ comes from the previous step
+
+This step is also just algebra.
+
+---
+
+### Step 4: State Update
+
+The current state estimate is computed using:
+- The predicted state
+- The measured value $z_k$
+- The Kalman gain
+
+This is where the filter blends **model-based prediction** and **sensor data**.
+
+---
+
+### Step 5: Covariance Update
+
+The error covariance $P_k$ is updated and passed to the next iteration.
+
+This closes the loop and returns to Step 1.
+
+---
+
+### Why the Kalman Filter Is Easier Than It Looks
+
+Among all the variables in the equations:
+
+- $A, H, Q, R$ are **given**
+- Only $P$ and $K$ are computed
+
+Once these matrices are defined, everything else is simple computation.
+
+The perceived difficulty comes from seeing all equations at once.
+
+---
+
+### What Are A and H?
+
+$A$ and $H$ come from the **state-space representation**.
+
+State-space equations:
+
+$$
+\dot{x} = A x + B u
+$$
+
+$$
+y = C x + D u
+$$
+
+These equations describe:
+- How the system evolves
+- How measurements relate to the state
+
+---
+
+### Example: Constant Velocity Motion
+
+Suppose we want to estimate position under constant velocity such as:
+
+$$
+x_{k+1} = A x_k + Q
+$$
+
+$$
+z_k = H x_k + R
+$$
+
+Define the state:
+
+$$
+x_k = \begin{bmatrix} \text{position} \\ \text{velocity} \end{bmatrix}
+$$
+
+Then:
+
+$$
+A =
+\begin{bmatrix}
+1 & \Delta t \\
+0 & 1
+\end{bmatrix}
+$$
+
+This represents:
+
+- Current position = previous position + velocity × time
+- Velocity remains constant
+
+This matrix encodes the **physics of the system**.
+
+---
+
+### Why A Is the Hard Part
+
+The Kalman filter itself is not difficult.
+
+The real challenge is constructing **A**, which requires:
+- Physical insight
+- Mathematical modeling
+- Understanding the system dynamics
+
+Once $A$ is correct, the Kalman filter becomes straightforward.
+
+---
+
+### What Is H?
+
+$H$ defines **what the sensor measures**.
+
+If:
+
+$$
+x_k = \begin{bmatrix} \text{position} \\ \text{velocity} \end{bmatrix}
+$$
+
+Then:
+- Measuring position → $H = [1 \; 0]$
+- Measuring velocity → $H = [0 \; 1]$
+
+The Kalman filter uses the measured variable as a reference to estimate the others.
+
+---
+
+### What Are Q and R?
+
+$Q$ and $R$ represent **noise**.
+
+- $R$: measurement noise  
+- $Q$: model uncertainty  
+
+No sensor is perfect, and no model fully captures reality.
+
+These uncertainties are explicitly included in the equations.
+
+---
+
+### Gaussian Noise Assumption
+
+Kalman filters assume that noise follows a **Gaussian distribution**.
+
+This is not arbitrary:
+- Many real-world noise sources approximate Gaussian behavior
+- Gaussian noise enables optimal estimation in linear systems
+
+This assumption underlies the optimality of the Kalman filter.
+
+---
+
+### Practical Meaning of Q and R
+
+- $Q$ is usually tuned based on experience
+- $R$ is often provided by sensor manufacturers
+
+They describe uncertainty, not errors to be eliminated.
+
+---
+
+### Summary
+
+- The Kalman filter is an optimal estimator for linear systems
+- It is recursive and computationally simple
+- $A$ and $H$ describe system physics and sensing
+- $Q$ and $R$ describe unavoidable noise
+- The complexity is visual, not conceptual
+
+If you understand these points, you already understand **about 80%** of the Kalman filter.
+
+The remaining 20% lies in understanding **covariance $P$ and Kalman gain $K$**, which will be covered next.
+
+---
