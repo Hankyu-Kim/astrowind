@@ -1,0 +1,80 @@
+---
+publishDate: 2026-07-24T00:00:00Z
+# author: Hankyu Kim
+title: "Installing Isaac Lab 3.0 with Isaac Sim 6.0 on Ubuntu"
+excerpt: This post shows how to install Isaac Lab 3.0 with Isaac Sim 6.0 on Ubuntu using uv, Python 3.12, and PyTorch with CUDA support.
+image: https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1740&auto=format&fit=crop
+category: Robotics
+tags:
+  - robotics
+  - Isaac Lab
+  - Isaac Sim
+  - NVIDIA
+  - simulation
+  - Ubuntu
+metadata:
+  canonical: https://isaac-sim.github.io/IsaacLab/develop/source/setup/installation/pip_installation.html
+---
+
+### Introduction
+
+Isaac Sim provides the simulation engine, PhysX physics, RTX rendering, sensors, and the Omniverse Kit interface. Isaac Lab runs on top of Isaac Sim and provides tools for robot learning, control, reinforcement learning, and large-scale parallel simulation.
+
+This installation uses Ubuntu 22.04, Python 3.12, Isaac Sim 6.0.0.1, the Isaac Lab `develop` branch, and PyTorch 2.11.0 with CUDA 12.8.
+
+The following commands can be copied directly into an Ubuntu terminal.
+
+```bash
+# Install the required Ubuntu packages.
+sudo apt update
+sudo apt install -y git curl cmake build-essential
+
+# Install uv, which will manage the Python virtual environment.
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source ~/.bashrc
+
+# Confirm that uv is available.
+uv --version
+
+# Clone the Isaac Lab develop branch.
+cd ~
+git clone https://github.com/isaac-sim/IsaacLab.git --branch develop
+cd IsaacLab
+
+# Create a dedicated Python 3.12 virtual environment.
+uv venv --python 3.12 --seed env_isaaclab
+
+# Activate the virtual environment.
+source env_isaaclab/bin/activate
+
+# Confirm that Isaac Lab will use the correct Python interpreter.
+which python
+python --version
+
+# Upgrade pip inside the virtual environment.
+uv pip install --upgrade pip
+
+# Install Isaac Sim 6.0 with its extensions and extension cache.
+uv pip install "isaacsim[all,extscache]==6.0.0.1" \
+  --extra-index-url https://pypi.nvidia.com \
+  --index-strategy unsafe-best-match \
+  --prerelease=allow
+
+# Install PyTorch and torchvision with CUDA 12.8 support.
+uv pip install -U \
+  torch==2.11.0 \
+  torchvision==0.26.0 \
+  --index-url https://download.pytorch.org/whl/cu128
+
+# Confirm that PyTorch can detect the NVIDIA GPU.
+python -c "import torch; print('PyTorch:', torch.__version__); print('CUDA available:', torch.cuda.is_available()); print('GPU:', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'None')"
+
+# Install Isaac Lab and its extensions.
+./isaaclab.sh -i
+
+# Accept the NVIDIA Omniverse license for the current terminal session.
+export OMNI_KIT_ACCEPT_EULA=YES
+
+# Launch an empty Isaac Lab simulation to verify the installation.
+./isaaclab.sh -p scripts/tutorials/00_sim/create_empty.py --viz kit
+```
