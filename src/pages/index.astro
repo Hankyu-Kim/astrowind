@@ -21,7 +21,19 @@ const metadata = {
     id="hero"
     title="Hankyu Kim"
     tagline="Personal Web"
-    actions={[{ variant: 'primary', text: 'Contact Me', href: getPermalink('/connect#form') }]}
+    actions={[
+  {
+    variant: 'primary',
+    text: 'View Portfolio',
+    href: 'https://app.notion.com/p/Hankyu-Kim-844268b63db4825c8346812e15b4dd51',
+    target: '_blank',
+  },
+  {
+    variant: 'secondary',
+    text: 'Contact Me',
+    href: getPermalink('/connect#form'),
+  },
+]}
   >
     <Fragment slot="subtitle">
       I'm a Robotics Engineer with a passionate for building intelligent systems. 
@@ -121,7 +133,7 @@ const metadata = {
     title="Education"
     items={[
       {
-        title: `Master of Science in Electrical and Computer Engineering <br /> <span class="font-normal">University of California, Santa Cruz</span> <br /> <span class="text-sm font-normal">2025 - Present</span>`,
+        title: `Master of Science in Electrical and Computer Engineering <br /> <span class="font-normal">University of California, Santa Cruz</span> <br /> <span class="text-sm font-normal">2025 - 2027</span>`,
         icon: 'tabler:school',
       },
       {
