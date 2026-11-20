@@ -76,6 +76,10 @@ export const headerData = {
           href: getPermalink('low-pass-filter', 'post'),
         },
         {
+          text: 'Ito Calculus',
+          href: getPermalink('ito-calculus', 'post'),
+        },
+        {
           text: 'Kalman Filter (Part 1)',
           href: getPermalink('kalman-filter1', 'post'),
         },

@@ -1,0 +1,292 @@
+---
+publishDate: 2026-01-06T00:00:00Z
+author: Hankyu Kim
+title: Ito Calculus and Ito's Lemma
+excerpt: Understanding Brownian motion, Wiener processes, and why Ito calculus is necessary for stochastic systems.
+image: https://images.unsplash.com/photo-1637666647808-8edc3a79ac8f?q=80&w=1736&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
+category: Estimation
+tags:
+  - ito-calculus
+  - ito-lemma
+  - stochastic-process
+  - wiener-process
+  - stochastic-differential-equations
+  - estimation
+  - control-theory
+---
+
+### Brownian Motion and Wiener Process
+
+**Brownian Motion** describes the random movement of particles caused by collisions with surrounding molecules.
+
+A **Wiener Process** $W(t)$ is a mathematical model of Brownian motion.
+
+A standard Wiener Process satisfies
+
+$$
+W(0)=0
+$$
+
+$$
+\boxed{W(t)\sim\mathcal{N}(0,t)}
+$$
+
+Therefore,
+
+$$
+E[W(t)]=0,\qquad \operatorname{Var}(W(t))=t
+$$
+
+The expected value remains zero, while the variance increases with time.
+
+For a time interval $\Delta t$, the Wiener increment follows
+
+$$
+\boxed{\Delta W\sim\mathcal{N}(0,\Delta t)}
+$$
+
+Wiener increments over non-overlapping time intervals are independent.
+
+![Wiener Process](/images/wiener_process.png)
+
+In MATLAB, a Wiener increment can be generated using
+
+```matlab
+dw = sqrt(dt) * randn;
+```
+
+---
+
+### Starting with a Simple Position and Velocity Model
+
+Suppose a vehicle moves with constant velocity.
+
+$$
+\frac{dx}{dt}=v
+$$
+
+Integrating,
+
+$$
+x(t)=x(0)+vt
+$$
+
+However, actual velocity may contain random fluctuations.
+
+$$
+\frac{dx}{dt}=v+\xi(t)
+$$
+
+where $\xi(t)$ represents Gaussian white noise.
+
+Ideal Gaussian white noise cannot be integrated using conventional calculus because it is not an ordinary function.
+
+Instead, we model its accumulated effect using Wiener increments.
+
+Formally,
+
+$$
+dW=\xi(t)\,dt
+$$
+
+The system becomes
+
+$$
+\boxed{dx=v\,dt+\sigma\,dW}
+$$
+
+where:
+- $v\,dt$: deterministic change
+- $\sigma\,dW$: stochastic change
+
+This is a **Stochastic Differential Equation (SDE)**.
+
+---
+
+### Why Is $(dW)^2=dt$ Important?
+
+In conventional calculus, higher-order infinitesimal terms such as $(dx)^2$ are neglected.
+
+However, Wiener increments behave differently.
+
+Since
+
+$$
+\Delta W\sim\mathcal{N}(0,\Delta t)
+$$
+
+we have
+
+$$
+E[(\Delta W)^2]=\Delta t
+$$
+
+This leads to the fundamental Itô calculus rule:
+
+$$
+\boxed{(dW)^2=dt}
+$$
+
+This is a symbolic rule based on the quadratic variation of Wiener processes, not an exact equality for individual increments.
+
+The Itô multiplication rules are
+
+$$
+(dt)^2=0,\qquad dt\,dW=0,\qquad(dW)^2=dt
+$$
+
+**Unlike conventional calculus, the second-order Wiener term cannot be ignored.**
+
+This produces the additional term in Itô's Lemma.
+
+---
+
+### What Is Ito Integration?
+
+Consider a stochastic differential equation:
+
+$$
+\boxed{dx=f(x,t)\,dt+b(x,t)\,dW}
+$$
+
+where $f(x,t)$ describes deterministic dynamics and $b(x,t)$ determines the noise intensity.
+
+For example,
+
+$$
+dx=-kx\,dt+\sigma x\,dW
+$$
+
+Integrating,
+
+$$
+x(T)=x(0)-\int_0^T kx(t)\,dt+\sigma\int_0^T x(t)\,dW(t)
+$$
+
+The last term is a stochastic integral.
+
+**Itô integration defines how to integrate with respect to Wiener increments.**
+
+$$
+\boxed{
+\int_0^T x(t)\,dW(t)
+=
+\lim_{\Delta t\to0}\sum_k x(t_k)\Delta W_k
+}
+$$
+
+The integrand is evaluated at the beginning of each time interval, and the limit is understood in a stochastic sense.
+
+---
+
+### What Is Ito's Lemma?
+
+**Itô's Lemma is the Chain Rule for stochastic processes.**
+
+Suppose
+
+$$
+dx=dW
+$$
+
+and define
+
+$$
+y=x^2
+$$
+
+In conventional calculus,
+
+$$
+dy=2x\,dx
+$$
+
+However, consider the exact change:
+
+$$
+\Delta y=(x+\Delta x)^2-x^2
+$$
+
+Expanding,
+
+$$
+\Delta y=2x\Delta x+(\Delta x)^2
+$$
+
+Since $\Delta x=\Delta W$,
+
+$$
+\Delta y=2x\Delta W+(\Delta W)^2
+$$
+
+Using the Itô rule $(dW)^2=dt$,
+
+$$
+\boxed{dy=2x\,dW+dt}
+$$
+
+The additional $dt$ is called the **Itô Correction Term**.
+
+---
+
+### General Form of Ito's Lemma
+
+Suppose
+
+$$
+dx=f(x,t)\,dt+b(x,t)\,dW
+$$
+
+and
+
+$$
+y=g(x,t)
+$$
+
+Then Itô's Lemma gives
+
+$$
+\boxed{
+dy=
+\left(
+\frac{\partial g}{\partial t}
++f\frac{\partial g}{\partial x}
++\frac12b^2\frac{\partial^2g}{\partial x^2}
+\right)dt
++
+b\frac{\partial g}{\partial x}dW
+}
+$$
+
+Compared with the ordinary Chain Rule, the additional term is
+
+$$
+\boxed{
+\frac12b^2\frac{\partial^2g}{\partial x^2}dt
+}
+$$
+
+This is the **Itô Correction Term**, which arises because $(dW)^2=dt$.
+
+Itô's Lemma allows us to calculate how a function of a stochastic state evolves.
+
+---
+
+### Summary
+
+- **Brownian Motion:** Random particle movement.
+- **Wiener Process:** Mathematical model of Brownian motion.
+- **Stochastic Differential Equation:** Dynamic system with random noise.
+- **Itô Integration:** Integration with respect to Wiener increments.
+- **Itô's Lemma:** Chain Rule for stochastic processes.
+- **Itô Correction Term:** Additional term caused by the quadratic variation of Wiener processes.
+
+The key relationship is
+
+$$
+\boxed{(dW)^2=dt}
+$$
+
+**Wiener processes model random disturbances, Itô integration defines their accumulation, and Itô's Lemma describes how functions of stochastic states evolve.**
+
+---
